@@ -1,0 +1,247 @@
+Tablas necesarias para el módulo de encuestas y bienestar
+
+Tendrás 4 tablas principales (además de usuarios y registros_bienestar, que ya tienes).
+
+🧱 Tabla 1: encuestas
+
+Contiene los metadatos generales de cada encuesta (creadas por RRHH o administrador).
+
+CREATE TABLE encuestas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(255) NOT NULL,
+  descripcion TEXT,
+  tipo ENUM('checkin_diario','evaluacion_mensual','clima_laboral','psicosocial') DEFAULT 'checkin_diario',
+  fecha_inicio DATETIME NULL,
+  fecha_fin DATETIME NULL,
+  repeticion ENUM('unica','diaria','semanal','mensual') DEFAULT 'unica',
+  publico ENUM('todos','por_area','por_usuario') DEFAULT 'todos',
+  id_creador INT NOT NULL,
+  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_creador) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+🧱 Tabla 2: preguntas_encuesta
+
+Cada encuesta puede tener una o más preguntas, según el tipo de evaluación.
+
+CREATE TABLE preguntas_encuesta (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_encuesta INT NOT NULL,
+  texto_pregunta TEXT NOT NULL,
+  tipo_respuesta ENUM('opcion_multiple','escala_1_5','texto_libre') DEFAULT 'escala_1_5',
+  opciones TEXT NULL,
+  orden INT DEFAULT 1,
+  FOREIGN KEY (id_encuesta) REFERENCES encuestas(id) ON DELETE CASCADE
+);
+
+
+Ejemplo de opciones: '["Sí","No","A veces"]'
+O escala del 1 al 5 para bienestar emocional.
+
+🧱 Tabla 3: respuestas_encuesta
+
+Guarda las respuestas que envían los trabajadores desde la app.
+
+CREATE TABLE respuestas_encuesta (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_encuesta INT NOT NULL,
+  id_pregunta INT NOT NULL,
+  id_usuario INT NOT NULL,
+  respuesta TEXT NOT NULL,
+  fecha_respuesta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_encuesta) REFERENCES encuestas(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_pregunta) REFERENCES preguntas_encuesta(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+🧱 Tabla 4: encuesta_asignaciones
+
+Controla a qué usuarios o áreas se les asignó una encuesta programada (y su estado).
+
+CREATE TABLE encuesta_asignaciones (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_encuesta INT NOT NULL,
+  id_usuario INT NOT NULL,
+  estado ENUM('pendiente','respondida','vencida') DEFAULT 'pendiente',
+  fecha_asignacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_encuesta) REFERENCES encuestas(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+⚙️ 2️⃣ Endpoints necesarios (Flask REST API)
+
+Aquí te dejo el listado profesional completo de endpoints RESTful para este módulo.
+
+Método	Endpoint	Descripción	Permiso
+GET	/encuestas	Obtener todas las encuestas activas	Admin / RRHH
+POST	/encuestas	Crear nueva encuesta (desde panel web)	Admin / RRHH
+GET	/encuestas/<id>	Obtener detalles de una encuesta (preguntas incluidas)	Todos
+PUT	/encuestas/<id>	Editar encuesta existente	Admin / RRHH
+DELETE	/encuestas/<id>	Eliminar encuesta	Admin
+POST	/encuestas/<id>/preguntas	Añadir pregunta a una encuesta	Admin / RRHH
+GET	/encuestas/<id>/preguntas	Listar preguntas de una encuesta	Todos
+POST	/respuestas	Registrar respuestas del trabajador (desde app móvil)	Trabajador
+GET	/respuestas/usuario/<id_usuario>	Ver historial de respuestas de un usuario	Admin / RRHH
+GET	/respuestas/encuesta/<id_encuesta>	Ver todas las respuestas de una encuesta	Admin / RRHH
+POST	/encuestas/<id>/asignar	Asignar encuesta a usuarios específicos	Admin / RRHH
+GET	/encuestas/pendientes/<id_usuario>	Obtener encuestas pendientes para un trabajador	Trabajador
+PUT	/encuestas/asignacion/<id>	Actualizar estado de asignación (respondida/vencida)	Automático / Admin
+🔄 3️⃣ Flujo descriptivo completo (panel + app móvil)
+
+Aquí te muestro cómo interactúan todos los componentes:
+
+🔹 A. Desde el panel web (Administrador / RRHH)
+
+RRHH crea una nueva encuesta desde el módulo “Bienestar”.
+
+Define: título, tipo, fecha de inicio y fin, y público objetivo.
+
+Ejemplo: Encuesta de bienestar semanal - Turno Noche.
+
+Agrega preguntas → del tipo escala 1–5 o texto.
+
+Ejemplo: “¿Te has sentido agotado físicamente esta semana?”
+
+Las preguntas se guardan en preguntas_encuesta.
+
+Si la encuesta no es diaria, asigna a usuarios o áreas.
+
+Se crean registros en encuesta_asignaciones.
+
+El sistema (backend) puede enviar una notificación Firebase Cloud Messaging (FCM) a los usuarios asignados para avisarles.
+
+🔹 B. En la aplicación móvil (Trabajador)
+
+El trabajador inicia sesión (Firebase Auth) y el backend valida su UID en la tabla usuarios.
+
+Al marcar asistencia o ingresar a la app, la app consulta:
+
+GET /encuestas/pendientes/<id_usuario>
+
+
+Si hay encuestas activas y pendientes → las muestra.
+
+El trabajador responde las preguntas → se guardan en respuestas_encuesta.
+
+Al enviar la encuesta:
+
+Se actualiza encuesta_asignaciones.estado = 'respondida'
+
+Se calcula un promedio si aplica (para registros_bienestar)
+
+Si los resultados son negativos (por ejemplo, nivel alto de estrés),
+se genera una alerta automáticamente en la tabla alertas.
+
+🔹 C. Desde el panel web (Monitoreo)
+
+El RRHH puede consultar:
+
+GET /respuestas/encuesta/<id_encuesta>
+
+
+y ver las métricas consolidadas:
+
+Promedio general de bienestar
+
+Porcentaje de participación
+
+Alertas generadas
+
+El sistema genera automáticamente un reporte mensual (tabla reportes_mensuales),
+mostrando tendencias de bienestar.
+
+🧠 4️⃣ Flujo lógico resumido (ideal para incluir en tesis)
+Administrador / RRHH
+        │
+        ▼
+ Crea encuesta en panel web ──> Guarda en "encuestas"
+        │
+        ▼
+ Añade preguntas ────────────> Guarda en "preguntas_encuesta"
+        │
+        ▼
+ Asigna usuarios (opcional) ─> "encuesta_asignaciones"
+        │
+        ▼
+ Notificación push a móviles
+        │
+        ▼
+     Trabajador abre app
+        │
+        ▼
+  Encuesta activa detectada
+        │
+        ▼
+  Responde preguntas (envía)
+        │
+        ▼
+   Guarda en "respuestas_encuesta"
+        │
+        ▼
+ Analiza resultados y genera alerta si aplica
+        │
+        ▼
+ Dashboard muestra resultados agregados
+
+ Se actualiza tablas para usuario
+ -- TABLA ADMINISTRADORES Y RRHH
+CREATE TABLE IF NOT EXISTS admin_login (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  apellido VARCHAR(100) NOT NULL,
+  correo VARCHAR(150) NOT NULL UNIQUE,
+  contrasena_hash VARCHAR(255) NOT NULL,
+  rol ENUM('admin','rrhh','medico_ocupacional') DEFAULT 'rrhh',
+  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  ultimo_acceso DATETIME DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- TABLA ENCUESTAS (creadas por RRHH o admin)
+CREATE TABLE IF NOT EXISTS encuestas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(255) NOT NULL,
+  descripcion TEXT,
+  tipo ENUM('checkin_diario','evaluacion_mensual','clima_laboral','psicosocial') DEFAULT 'checkin_diario',
+  fecha_inicio DATETIME NULL,
+  fecha_fin DATETIME NULL,
+  repeticion ENUM('unica','diaria','semanal','mensual') DEFAULT 'unica',
+  publico ENUM('todos','por_area','por_usuario') DEFAULT 'todos',
+  id_creador INT NOT NULL,
+  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_creador) REFERENCES admin_login(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- TABLA PREGUNTAS DE CADA ENCUESTA
+CREATE TABLE IF NOT EXISTS preguntas_encuesta (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_encuesta INT NOT NULL,
+  texto_pregunta TEXT NOT NULL,
+  tipo_respuesta ENUM('opcion_multiple','escala_1_5','texto_libre') DEFAULT 'escala_1_5',
+  opciones TEXT NULL,
+  orden INT DEFAULT 1,
+  FOREIGN KEY (id_encuesta) REFERENCES encuestas(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- TABLA RESPUESTAS (desde la app móvil)
+CREATE TABLE IF NOT EXISTS respuestas_encuesta (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_encuesta INT NOT NULL,
+  id_pregunta INT NOT NULL,
+  id_usuario INT NOT NULL,
+  respuesta TEXT NOT NULL,
+  fecha_respuesta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_encuesta) REFERENCES encuestas(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_pregunta) REFERENCES preguntas_encuesta(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- TABLA ASIGNACIONES DE ENCUESTA A USUARIOS
+CREATE TABLE IF NOT EXISTS encuesta_asignaciones (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_encuesta INT NOT NULL,
+  id_usuario INT NOT NULL,
+  estado ENUM('pendiente','respondida','vencida') DEFAULT 'pendiente',
+  fecha_asignacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_encuesta) REFERENCES encuestas(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
