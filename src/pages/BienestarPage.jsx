@@ -51,7 +51,7 @@ function BienestarPage() {
         const fd = new FormData()
         fd.append('file', archivo)
         // Mapear tipos UI a tipos backend (enum): imagen/audio -> documento
-        const tipoBackend = (nuevo.tipo === 'imagen' || nuevo.tipo === 'audio') ? 'documento' : nuevo.tipo
+        const tipoBackend = nuevo.tipo
         fd.append('tipo', tipoBackend)
         if (nuevo.titulo) fd.append('titulo', nuevo.titulo)
         if (nuevo.categoria) fd.append('descripcion', nuevo.categoria)
@@ -116,7 +116,7 @@ function BienestarPage() {
 
   const guardarEdicion = async (id) => {
     try {
-      const tipoBackend = (edicion.tipo === 'imagen' || edicion.tipo === 'audio') ? 'documento' : edicion.tipo
+      const tipoBackend = edicion.tipo
       await editarContenido(id, { titulo: edicion.titulo, tipo: tipoBackend, url_archivo: edicion.url_archivo, descripcion: edicion.categoria })
       cancelarEdicion()
       await cargarRecursos()
