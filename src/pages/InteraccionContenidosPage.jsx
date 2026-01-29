@@ -47,7 +47,7 @@ function InteraccionContenidosPage() {
         </h1>
         <Link
           to="/bienestar"
-          className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs hover:bg-[#3b82f6] hover:border-[#3b82f6] hover:text-white transition-colors"
+          className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs hover:bg-[#3b82f6] hover:border-[#3b82f6] hover:text-white transition-colors"
         >
           Regresar
         </Link>
@@ -64,14 +64,14 @@ function InteraccionContenidosPage() {
         <div className="overflow-auto">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="text-[var(--muted)] font-semibold text-xs">
-                <th className="text-left px-3 py-2 border-b">Título</th>
-                <th className="text-left px-3 py-2 border-b">Tipo</th>
-                <th className="text-left px-3 py-2 border-b">Descripción</th>
-                <th className="text-left px-3 py-2 border-b">Fecha</th>
-                <th className="text-left px-3 py-2 border-b">Vistos</th>
-                <th className="text-left px-3 py-2 border-b">Descargas</th>
-                <th className="text-left px-3 py-2 border-b">Completados</th>
+              <tr className="text-[var(--text)] font-semibold text-xs">
+                <th className="text-left px-3 py-2 border-b border-[var(--border)]">Título</th>
+                <th className="text-left px-3 py-2 border-b border-[var(--border)]">Tipo</th>
+                <th className="text-left px-3 py-2 border-b border-[var(--border)]">Descripción</th>
+                <th className="text-left px-3 py-2 border-b border-[var(--border)]">Fecha</th>
+                <th className="text-left px-3 py-2 border-b border-[var(--border)]">Vistos</th>
+                <th className="text-left px-3 py-2 border-b border-[var(--border)]">Descargas</th>
+                <th className="text-left px-3 py-2 border-b border-[var(--border)]">Completados</th>
               </tr>
             </thead>
             <tbody>
@@ -92,7 +92,7 @@ function InteraccionContenidosPage() {
       </Card>
       <div className="flex items-center justify-end gap-2">
         <button
-          className="px-2 py-1 rounded-full border border-[var(--border)] bg-white text-xs disabled:opacity-50"
+          className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs disabled:opacity-50"
           onClick={() => setPageTable(p => Math.max(1, p - 1))}
           disabled={pageTable === 1}
         >
@@ -100,7 +100,7 @@ function InteraccionContenidosPage() {
         </button>
         <span className="text-xs text-[var(--muted)]">Página {pageTable} de {totalPagesTable}</span>
         <button
-          className="px-2 py-1 rounded-full border border-[var(--border)] bg-white text-xs disabled:opacity-50"
+          className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs disabled:opacity-50"
           onClick={() => setPageTable(p => Math.min(totalPagesTable, p + 1))}
           disabled={pageTable >= totalPagesTable}
         >

@@ -193,13 +193,13 @@ function BienestarPage() {
   const cardBgStyleForTipo = (tipo) => {
     const t = String(tipo || '').toLowerCase()
     const palettes = {
-      video: { start: '#e0f2fe', end: '#bfdbfe', b1: '#dbeafe', b2: '#93c5fd' }, // azules
-      imagen: { start: '#f5d0fe', end: '#fbcfe8', b1: '#fce7f3', b2: '#f0abfc' }, // lila/rosa
-      audio: { start: '#fef3c7', end: '#fde68a', b1: '#fef9c3', b2: '#f59e0b' }, // amarillos
-      pdf: { start: '#fee2e2', end: '#fecaca', b1: '#fecaca', b2: '#ef4444' }, // rojos
-      documento: { start: '#f1f5f9', end: '#e2e8f0', b1: '#e5e7eb', b2: '#94a3b8' }, // grises
-      tip: { start: '#dcfce7', end: '#bbf7d0', b1: '#d1fae5', b2: '#10b981' }, // verdes
-      default: { start: '#f1f5f9', end: '#e2e8f0', b1: '#e5e7eb', b2: '#94a3b8' },
+      video: { start: 'var(--card-video-start)', end: 'var(--card-video-end)', b1: 'var(--card-video-b1)', b2: 'var(--card-video-b2)' },
+      imagen: { start: 'var(--card-imagen-start)', end: 'var(--card-imagen-end)', b1: 'var(--card-imagen-b1)', b2: 'var(--card-imagen-b2)' },
+      audio: { start: 'var(--card-audio-start)', end: 'var(--card-audio-end)', b1: 'var(--card-audio-b1)', b2: 'var(--card-audio-b2)' },
+      pdf: { start: 'var(--card-pdf-start)', end: 'var(--card-pdf-end)', b1: 'var(--card-pdf-b1)', b2: 'var(--card-pdf-b2)' },
+      documento: { start: 'var(--card-doc-start)', end: 'var(--card-doc-end)', b1: 'var(--card-doc-b1)', b2: 'var(--card-doc-b2)' },
+      tip: { start: 'var(--card-tip-start)', end: 'var(--card-tip-end)', b1: 'var(--card-tip-b1)', b2: 'var(--card-tip-b2)' },
+      default: { start: 'var(--card-doc-start)', end: 'var(--card-doc-end)', b1: 'var(--card-doc-b1)', b2: 'var(--card-doc-b2)' },
     }
     const { start, end, b1, b2 } = palettes[t] || palettes.default
     return {
@@ -221,7 +221,7 @@ function BienestarPage() {
         </h1>
         <div className="flex items-center gap-2">
           <button
-            className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs hover:bg-[#55AB44] hover:border-[#55AB44] hover:text-white transition-colors"
+            className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs hover:bg-[#55AB44] hover:border-[#55AB44] hover:text-white transition-colors"
             onClick={() => setShowAddModal(true)}
             title="Agregar recurso"
             aria-label="Agregar recurso"
@@ -230,14 +230,14 @@ function BienestarPage() {
           </button>
           <Link
             to="/bienestar/interaccion"
-            className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs hover:bg-[#3b82f6] hover:border-[#3b82f6] hover:text-white transition-colors"
+            className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs hover:bg-[#3b82f6] hover:border-[#3b82f6] hover:text-white transition-colors"
             title="Ver interacción"
             aria-label="Ver interacción"
           >
             Ver interacción
           </Link>
           <button
-            className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs hover:bg-[#55AB44] hover:border-[#55AB44] hover:text-white transition-colors"
+            className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs hover:bg-[#55AB44] hover:border-[#55AB44] hover:text-white transition-colors"
             onClick={notificarTodos}
             title="Notificar nuevo contenido"
             aria-label="Notificar nuevo contenido"
@@ -275,8 +275,8 @@ function BienestarPage() {
             <div key={r.id} className="rounded-md border border-[var(--border)] p-2 shadow-sm hover:shadow-md hover:-translate-y-[1px] transition-transform" style={cardBgStyleForTipo(r.tipo)}>
               {editandoId === r.id ? (
                 <div className="grid gap-2">
-                  <input className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs" placeholder="Título" value={edicion.titulo} onChange={e => setEdicion(s => ({ ...s, titulo: e.target.value }))} />
-                  <select className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs" value={edicion.tipo} onChange={e => setEdicion(s => ({ ...s, tipo: e.target.value }))}>
+                  <input className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)]" placeholder="Título" value={edicion.titulo} onChange={e => setEdicion(s => ({ ...s, titulo: e.target.value }))} />
+                  <select className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)]" value={edicion.tipo} onChange={e => setEdicion(s => ({ ...s, tipo: e.target.value }))}>
                     <option value="video">Video</option>
                     <option value="imagen">Imagen</option>
                     <option value="audio">Audio</option>
@@ -286,14 +286,14 @@ function BienestarPage() {
                   </select>
                   {edicion.tipo !== 'tip' ? (
                     <>
-                      <input className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs" placeholder="URL del archivo" value={edicion.url_archivo} onChange={e => setEdicion(s => ({ ...s, url_archivo: e.target.value }))} />
-                      <input className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs" placeholder="Categoría/Descripción" value={edicion.categoria} onChange={e => setEdicion(s => ({ ...s, categoria: e.target.value }))} />
+                      <input className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)]" placeholder="URL del archivo" value={edicion.url_archivo} onChange={e => setEdicion(s => ({ ...s, url_archivo: e.target.value }))} />
+                      <input className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)]" placeholder="Categoría/Descripción" value={edicion.categoria} onChange={e => setEdicion(s => ({ ...s, categoria: e.target.value }))} />
                     </>
                   ) : (
                     <div className="grid gap-1">
                       <label className="text-[11px] text-[var(--muted)]">Texto del tip</label>
                       <textarea
-                        className="border border-[var(--border)] rounded-md px-2.5 py-1.5 text-xs min-h-[100px]"
+                        className="border border-[var(--border)] rounded-md px-2.5 py-1.5 text-xs min-h-[100px] bg-[var(--surface)] text-[var(--text)]"
                         placeholder="Escribe el tip aquí"
                         value={edicion.categoria}
                         onChange={e => setEdicion(s => ({ ...s, categoria: e.target.value }))}
@@ -301,8 +301,8 @@ function BienestarPage() {
                     </div>
                   )}
                   <div className="flex gap-2 justify-end">
-                    <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs" onClick={cancelarEdicion}>Cancelar</button>
-                    <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs hover:bg-[#55AB44] hover:border-[#55AB44] hover:text-white transition-colors" onClick={() => guardarEdicion(r.id)}>Guardar</button>
+                    <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={cancelarEdicion}>Cancelar</button>
+                    <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs hover:bg-[#55AB44] hover:border-[#55AB44] hover:text-white transition-colors" onClick={() => guardarEdicion(r.id)}>Guardar</button>
                   </div>
                 </div>
               ) : (
@@ -312,23 +312,23 @@ function BienestarPage() {
                     <p className="m-0 font-semibold text-sm truncate" title={r.titulo}>{r.titulo}</p>
                     <p className="m-0 text-[12px] text-[var(--muted)]">Tipo: {String(r.tipo || '').toUpperCase()} • Fecha: {r.fecha_publicacion?.slice(0,10) || '-'}</p>
                     <div className="flex items-center gap-2 text-[12px] mt-1">
-                      <span className="px-2 py-0.5 rounded-full bg-[#eef2ff] text-[#3b82f6]">Vistos: {r.interaccion.visto}</span>
-                      <span className="px-2 py-0.5 rounded-full bg-[#fff7ed] text-[#f59e0b]">Descargas: {r.interaccion.descargado}</span>
-                      <span className="px-2 py-0.5 rounded-full bg-[#ecfdf5] text-[#10b981]">Completados: {r.interaccion.completado}</span>
+                      <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300">Vistos: {r.interaccion.visto}</span>
+                      <span className="px-2 py-0.5 rounded-full bg-amber-50 text-amber-600 dark:bg-amber-900/40 dark:text-amber-300">Descargas: {r.interaccion.descargado}</span>
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-300">Completados: {r.interaccion.completado}</span>
                     </div>
                     <div className="flex flex-wrap gap-2 mt-2">
                       <a
                         href={r.url_archivo}
                         target="_blank"
                         rel="noreferrer"
-                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-white text-gray-600 hover:text-white hover:bg-[#3b82f6] hover:border-[#3b82f6] transition-colors"
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:text-white hover:bg-[#3b82f6] hover:border-[#3b82f6] transition-colors"
                         title="Ver"
                         aria-label="Ver"
                       >
                         <FiEye size={16} />
                       </a>
                       <button
-                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-white text-gray-600 hover:text-white hover:bg-amber-500 hover:border-amber-500 transition-colors"
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:text-white hover:bg-amber-500 hover:border-amber-500 transition-colors"
                         onClick={() => iniciarEdicion(r)}
                         title="Editar"
                         aria-label="Editar"
@@ -336,7 +336,7 @@ function BienestarPage() {
                         <FiEdit2 size={16} />
                       </button>
                       <button
-                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-white text-gray-600 hover:text-white hover:bg-red-500 hover:border-red-500 transition-colors"
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:text-white hover:bg-red-500 hover:border-red-500 transition-colors"
                         onClick={() => eliminarRecurso(r.id)}
                         title="Eliminar"
                         aria-label="Eliminar"
@@ -344,7 +344,7 @@ function BienestarPage() {
                         <FiTrash2 size={16} />
                       </button>
                       <button
-                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-white text-gray-600 hover:text-white hover:bg-[#55AB44] hover:border-[#55AB44] transition-colors"
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:text-white hover:bg-[#55AB44] hover:border-[#55AB44] transition-colors"
                         onClick={() => notificarRecurso(r)}
                         title="Notificar"
                         aria-label="Notificar"
@@ -358,7 +358,7 @@ function BienestarPage() {
                     <img
                       src={iconSrcForTipo(r.tipo)}
                       alt={`Tipo ${r.tipo || ''}`}
-                      className="w-14 h-14 md:w-16 md:h-16 rounded-md border border-[var(--border)] bg-white object-contain opacity-90"
+                      className="w-14 h-14 md:w-16 md:h-16 rounded-md border border-[var(--border)] bg-[var(--surface)] object-contain opacity-90"
                     />
                   </div>
                 </div>
@@ -377,7 +377,7 @@ function BienestarPage() {
             <div className="flex items-center gap-1">
               <span className="text-xs text-[var(--muted)]">Por página:</span>
               <select
-                className="px-2 py-1 rounded-full border text-xs"
+                className="px-2 py-1 rounded-full border border-[var(--border)] text-xs bg-[var(--surface)] text-[var(--text)]"
                 value={pageSizeList}
                 onChange={(e) => { const val = Number(e.target.value); setPageSizeList(val); setPageList(1); }}
               >
@@ -389,7 +389,7 @@ function BienestarPage() {
           </div>
           <div className="flex items-center gap-2">
             <button
-              className="px-3 py-1.5 rounded-full border text-xs"
+              className="px-3 py-1.5 rounded-full border border-[var(--border)] text-xs bg-[var(--surface)] text-[var(--text)]"
               onClick={() => setPageList(p => Math.max(1, p - 1))}
               disabled={pageList <= 1}
             >Anterior</button>
@@ -409,7 +409,7 @@ function BienestarPage() {
                 typeof p === 'number' ? (
                   <button
                     key={`p-${p}`}
-                    className={`px-2.5 py-1 rounded-full border text-xs ${p === pageList ? 'bg-primary text-white' : 'bg-white'}`}
+                    className={`px-2.5 py-1 rounded-full border text-xs ${p === pageList ? 'bg-primary text-white' : 'bg-[var(--surface)] text-[var(--text)]'}`}
                     onClick={() => setPageList(p)}
                   >{p}</button>
                 ) : (

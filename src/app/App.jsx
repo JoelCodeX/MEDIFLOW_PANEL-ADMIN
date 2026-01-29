@@ -6,9 +6,15 @@ import Sidebar from '@/components/Sidebar'
 
 function App() {
   const [showMessages, setShowMessages] = useState(false)
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
+
   return (
-    <div className="grid grid-cols-[220px_1fr] h-screen overflow-hidden">
-      <Sidebar onOpenMessages={() => setShowMessages(true)} />
+    <div className={`grid h-screen overflow-hidden transition-all duration-300 ease-in-out ${isSidebarCollapsed ? 'grid-cols-[80px_1fr]' : 'grid-cols-[220px_1fr]'}`}>
+      <Sidebar 
+        onOpenMessages={() => setShowMessages(true)} 
+        isCollapsed={isSidebarCollapsed} 
+        onToggle={() => setIsSidebarCollapsed(!isSidebarCollapsed)} 
+      />
       <div className="flex flex-col h-full min-h-0 overflow-hidden">
         <Header onOpenMessages={() => setShowMessages(true)} />
         <main className="p-4 flex-1 overflow-auto">

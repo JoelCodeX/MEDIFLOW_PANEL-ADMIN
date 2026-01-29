@@ -27,23 +27,28 @@ function LineChart({ data }) {
               <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
           <XAxis 
             dataKey="name" 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#9ca3af', fontSize: 10 }} 
+            tick={{ fill: 'var(--muted)', fontSize: 10 }} 
             dy={10}
           />
           <YAxis 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#9ca3af', fontSize: 10 }} 
+            tick={{ fill: 'var(--muted)', fontSize: 10 }} 
           />
           <Tooltip 
-            contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+            contentStyle={{ 
+              backgroundColor: 'var(--chart-tooltip-bg)', 
+              borderRadius: '8px', 
+              border: '1px solid var(--border)', 
+              boxShadow: '0 4px 12px rgba(0,0,0,0.1)' 
+            }}
             itemStyle={{ fontSize: '12px' }}
-            labelStyle={{ color: '#6b7280', fontSize: '11px', marginBottom: '4px' }}
+            labelStyle={{ color: 'var(--muted)', fontSize: '11px', marginBottom: '4px' }}
           />
           <Area 
             type="monotone" 

@@ -74,34 +74,34 @@ function AuditoriaPage() {
     if (a.includes('eliminar')) {
       return {
         label: 'CRÍTICO',
-        className: 'px-2 py-0.5 rounded-full bg-[#fee2e2] text-[#b91c1c] text-[10px] font-semibold'
+        className: 'px-2 py-0.5 rounded-full bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300 text-[10px] font-semibold'
       }
     }
     // Advertencia: actualizar/editar/cambio
     if (a.includes('actualizar') || a.includes('editar') || a.includes('cambio')) {
       return {
         label: 'Advertencia',
-        className: 'px-2 py-0.5 rounded-full bg-[#fef3c7] text-[#92400e] text-[10px] font-semibold'
+        className: 'px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 text-[10px] font-semibold'
       }
     }
     // Éxito: publicar/activar
     if (a.includes('publicar') || a.includes('activar')) {
       return {
         label: 'Éxito',
-        className: 'px-2 py-0.5 rounded-full bg-[#dcfce7] text-[#065f46] text-[10px] font-semibold'
+        className: 'px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 text-[10px] font-semibold'
       }
     }
     // Normal: crear/registro/login/sync y otros
     if (a.includes('crear') || a.includes('registro') || a.includes('login') || a.includes('sync')) {
       return {
         label: 'Normal',
-        className: 'px-2 py-0.5 rounded-full bg-[#e5e7eb] text-[#374151] text-[10px]'
+        className: 'px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 text-[10px]'
       }
     }
     // Por defecto: Normal
     return {
       label: 'Normal',
-      className: 'px-2 py-0.5 rounded-full bg-[#e5e7eb] text-[#374151] text-[10px]'
+      className: 'px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 text-[10px]'
     }
   }
 
@@ -113,11 +113,11 @@ function AuditoriaPage() {
       </div>
 
       {/* Filtros */}
-      <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
         <div className="grid grid-cols-4 gap-2 items-end">
           <div>
             <label className="block text-xs text-[var(--muted)] mb-1">Usuario</label>
-            <select className="w-full border rounded-full px-3 py-2 text-sm" value={filtroUsuario} onChange={e => setFiltroUsuario(e.target.value)}>
+            <select className="w-full border border-[var(--border)] rounded-full px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]" value={filtroUsuario} onChange={e => setFiltroUsuario(e.target.value)}>
               <option value="">Todos</option>
               {adminsUnicos.map((a) => (
                 <option key={a.id} value={a.id}>{a.label}</option>
@@ -126,7 +126,7 @@ function AuditoriaPage() {
           </div>
           <div>
             <label className="block text-xs text-[var(--muted)] mb-1">Acción</label>
-            <select className="w-full border rounded-full px-3 py-2 text-sm" value={filtroAccion} onChange={e => setFiltroAccion(e.target.value)}>
+            <select className="w-full border border-[var(--border)] rounded-full px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]" value={filtroAccion} onChange={e => setFiltroAccion(e.target.value)}>
               <option value="">Todas</option>
               {accionesUnicas.map(a => (
                 <option key={a} value={a}>{a}</option>
@@ -135,26 +135,26 @@ function AuditoriaPage() {
           </div>
           <div className="col-span-2">
             <label className="block text-xs text-[var(--muted)] mb-1">Buscar</label>
-            <input className="w-full border rounded-full px-3 py-2 text-sm" placeholder="Texto o fecha" value={searchText} onChange={e => setSearchText(e.target.value)} />
+            <input className="w-full border border-[var(--border)] rounded-full px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]" placeholder="Texto o fecha" value={searchText} onChange={e => setSearchText(e.target.value)} />
           </div>
         </div>
       </div>
 
       {/* Tabla cronológica + alertas críticas visuales */}
-      <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
         <p className="m-0 mb-2 text-sm font-medium">Historial de acciones</p>
         {error && <p className="text-sm text-red-600 m-0 mb-2">{error}</p>}
         {loading && <p className="text-sm text-[var(--muted)] m-0 mb-2">Cargando...</p>}
         <div className="overflow-auto max-h-[50vh] min-h-[200px]">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="text-[var(--muted)] font-semibold text-xs">
-                <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">ID</th>
-                <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Usuario</th>
-                <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Acción</th>
-                <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Descripción</th>
-                <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Fecha</th>
-                <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Alerta</th>
+              <tr className="text-[var(--text)] font-semibold text-xs">
+                <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b border-[var(--border)]">ID</th>
+                <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b border-[var(--border)]">Usuario</th>
+                <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b border-[var(--border)]">Acción</th>
+                <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b border-[var(--border)]">Descripción</th>
+                <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b border-[var(--border)]">Fecha</th>
+                <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b border-[var(--border)]">Alerta</th>
               </tr>
             </thead>
             <tbody>
@@ -162,7 +162,7 @@ function AuditoriaPage() {
                 const badge = badgeForAccion(r.accion)
                 const isCriticoRow = badge.label === 'CRÍTICO'
                 return (
-                <tr key={r.id} className={`text-sm ${isCriticoRow ? 'bg-[#fff4f4]' : ''}`}>
+                <tr key={r.id} className={`text-sm ${isCriticoRow ? 'bg-[#fff4f4] dark:bg-red-900/20' : ''}`}>
                   <td className="border-b border-[var(--border)] px-2 py-1">{r.id}</td>
                   <td className="border-b border-[var(--border)] px-2 py-1">
                     {r.admin_nombre || r.admin_apellido ? (
@@ -189,13 +189,13 @@ function AuditoriaPage() {
         </div>
       </div>
       {/* Paginación (igual a PersonalPage) */}
-      <div className="bg-white border border-[var(--border)] rounded-xl flex items-center justify-between px-3 py-2 mt-2">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl flex items-center justify-between px-3 py-2 mt-2">
         <div className="flex items-center gap-3">
           <span className="text-xs text-[var(--muted)]">Página {page} de {totalPages} • {totalItems} registros</span>
           <div className="flex items-center gap-1">
             <span className="text-xs text-[var(--muted)]">Por página:</span>
             <select
-              className="px-2 py-1 rounded-full border text-xs"
+              className="px-2 py-1 rounded-full border border-[var(--border)] text-xs bg-[var(--surface)] text-[var(--text)]"
               value={pageSize}
               onChange={(e) => { const val = Number(e.target.value); setPageSize(val); setPage(1); }}
             >
@@ -207,7 +207,7 @@ function AuditoriaPage() {
         </div>
         <div className="flex items-center gap-2">
           <button
-            className="px-3 py-1.5 rounded-full border text-xs"
+            className="px-3 py-1.5 rounded-full border border-[var(--border)] text-xs bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--muted)]/10"
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page <= 1}
           >Anterior</button>
@@ -227,7 +227,7 @@ function AuditoriaPage() {
               typeof p === 'number' ? (
                 <button
                   key={`p-${p}`}
-                  className={`px-2.5 py-1 rounded-full border text-xs ${p === page ? 'bg-primary text-white' : 'bg-white'}`}
+                  className={`px-2.5 py-1 rounded-full border border-[var(--border)] text-xs ${p === page ? 'bg-primary text-white' : 'bg-[var(--surface)] text-[var(--text)]'}`}
                   onClick={() => setPage(p)}
                 >{p}</button>
               ) : (

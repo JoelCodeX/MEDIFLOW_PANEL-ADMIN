@@ -233,13 +233,13 @@ function PersonalPage() {
       <Card title="Búsqueda y filtros" compact>
         <div className="flex items-center gap-2 mb-2 text-sm">
           <input
-            className="border border-[var(--border)] rounded-full px-3 py-2 w-64 text-sm"
+            className="border border-[var(--border)] rounded-full px-3 py-2 w-64 text-sm bg-[var(--surface)] text-[var(--text)]"
             placeholder="Buscar nombre, área o rol"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
           <select
-            className="border border-[var(--border)] rounded-full px-3 py-2 text-sm"
+            className="border border-[var(--border)] rounded-full px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]"
             value={filterArea}
             onChange={(e) => setFilterArea(e.target.value)}
           >
@@ -249,7 +249,7 @@ function PersonalPage() {
             ))}
           </select>
           <select
-            className="border border-[var(--border)] rounded-full px-3 py-2 text-sm"
+            className="border border-[var(--border)] rounded-full px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]"
             value={filterRol}
             onChange={(e) => setFilterRol(e.target.value)}
           >
@@ -259,7 +259,7 @@ function PersonalPage() {
             ))}
           </select>
           <select
-            className="border border-[var(--border)] rounded-full px-3 py-2 text-sm"
+            className="border border-[var(--border)] rounded-full px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]"
             value={filterEstado}
             onChange={(e) => setFilterEstado(e.target.value)}
           >
@@ -277,14 +277,14 @@ function PersonalPage() {
         <div className="overflow-auto max-h-[50vh] min-h-[200px]">
         <table className="w-full border-collapse text-sm">
           <thead>
-            <tr className="text-[var(--muted)] font-semibold text-xs">
-              <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">#</th>
-              <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Nombre</th>
-              <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Área</th>
-              <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Rol</th>
-              <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Estado</th>
-              <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Fecha de registro</th>
-              <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Acciones</th>
+            <tr className="text-[var(--text)] font-semibold text-xs">
+              <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">#</th>
+              <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Nombre</th>
+              <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Área</th>
+              <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Rol</th>
+              <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Estado</th>
+              <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Fecha de registro</th>
+              <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -332,7 +332,7 @@ function PersonalPage() {
             <div className="flex items-center gap-1">
               <span className="text-xs text-[var(--muted)]">Por página:</span>
               <select
-                className="px-2 py-1 rounded-full border text-xs"
+                className="px-2 py-1 rounded-full border text-xs bg-[var(--surface)] text-[var(--text)]"
                 value={pageSize}
                 onChange={(e) => { const val = Number(e.target.value); setPageSize(val); setPage(1); }}
               >
@@ -344,7 +344,7 @@ function PersonalPage() {
           </div>
           <div className="flex items-center gap-2">
             <button
-              className="px-3 py-1.5 rounded-full border text-xs"
+              className="px-3 py-1.5 rounded-full border border-[var(--border)] text-xs bg-[var(--surface)] text-[var(--text)]"
               onClick={() => setPage(p => Math.max(1, p - 1))}
               disabled={page <= 1}
             >Anterior</button>
@@ -364,7 +364,7 @@ function PersonalPage() {
                 typeof p === 'number' ? (
                   <button
                     key={`p-${p}`}
-                    className={`px-2.5 py-1 rounded-full border text-xs ${p === page ? 'bg-primary text-white' : 'bg-white'}`}
+                    className={`px-2.5 py-1 rounded-full border text-xs ${p === page ? 'bg-primary text-white' : 'bg-[var(--surface)] text-[var(--text)]'}`}
                     onClick={() => setPage(p)}
                   >{p}</button>
                 ) : (
@@ -373,7 +373,7 @@ function PersonalPage() {
               ))}
             </div>
             <button
-              className="px-3 py-1.5 rounded-full border bg-primary text-white text-xs disabled:opacity-50"
+              className="px-3 py-1.5 rounded-full border border-primary bg-primary text-white text-xs disabled:opacity-50"
               onClick={() => setPage(p => Math.min(totalPages, p + 1))}
               disabled={page >= totalPages}
             >Siguiente</button>
@@ -427,7 +427,7 @@ function PersonalPage() {
 }
 
 function Modal({ title, children, onClose, compact = false }) {
-  const containerBase = "bg-white border border-[var(--border)] shadow-xl w-full overflow-hidden"
+  const containerBase = "bg-[var(--surface)] border border-[var(--border)] shadow-xl w-full overflow-hidden"
   const containerSize = compact ? "max-w-xl" : "max-w-2xl"
   const containerRadius = compact ? "rounded-2xl" : "rounded-xl"
   const bodyPadding = compact ? "p-2" : "p-3"
@@ -513,7 +513,7 @@ function UserForm({ onSubmit, compact = false }) {
         <div>
           <label className="block text-xs font-medium mb-1">Nombre *</label>
           <input 
-            className={`w-full border rounded-lg px-2 py-1.5 text-sm ${errors.nombre ? 'border-red-500' : ''}`}
+            className={`w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)] ${errors.nombre ? 'border-red-500' : ''}`}
             placeholder="Nombre del trabajador" 
             name="nombre" 
             value={form.nombre} 
@@ -526,7 +526,7 @@ function UserForm({ onSubmit, compact = false }) {
         <div>
           <label className="block text-xs font-medium mb-1">Apellido *</label>
           <input 
-            className={`w-full border rounded-lg px-2 py-1.5 text-sm ${errors.apellido ? 'border-red-500' : ''}`}
+            className={`w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)] ${errors.apellido ? 'border-red-500' : ''}`}
             placeholder="Apellido del trabajador" 
             name="apellido" 
             value={form.apellido} 
@@ -539,7 +539,7 @@ function UserForm({ onSubmit, compact = false }) {
         <div>
           <label className="block text-xs font-medium mb-1">Correo electrónico *</label>
           <input 
-            className={`w-full border rounded-lg px-2 py-1.5 text-sm ${errors.correo ? 'border-red-500' : ''}`}
+            className={`w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)] ${errors.correo ? 'border-red-500' : ''}`}
             placeholder="correo@hospital.com" 
             name="correo" 
             type="email"
@@ -553,7 +553,7 @@ function UserForm({ onSubmit, compact = false }) {
         <div>
           <label className="block text-xs font-medium mb-1">DNI *</label>
           <input 
-            className={`w-full border rounded-lg px-2 py-1.5 text-sm ${errors.dni ? 'border-red-500' : ''}`} 
+            className={`w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)] ${errors.dni ? 'border-red-500' : ''}`} 
             placeholder="12345678" 
             name="dni" 
             value={form.dni} 
@@ -566,7 +566,7 @@ function UserForm({ onSubmit, compact = false }) {
         <div>
           <label className="block text-xs font-medium mb-1">Rol</label>
           <select 
-            className="w-full border rounded-lg px-2 py-1.5 text-sm" 
+            className="w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)]" 
             name="rol" 
             value={form.rol} 
             onChange={handleChange}
@@ -581,7 +581,7 @@ function UserForm({ onSubmit, compact = false }) {
         <div>
           <label className="block text-xs font-medium mb-1">Área</label>
           <select 
-            className="w-full border rounded-lg px-2 py-1.5 text-sm" 
+            className="w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)]" 
             name="area" 
             value={form.area} 
             onChange={handleChange}
@@ -596,7 +596,7 @@ function UserForm({ onSubmit, compact = false }) {
         <div>
           <label className="block text-xs font-medium mb-1">Cargo</label>
           <select 
-            className="w-full border rounded-lg px-2 py-1.5 text-sm" 
+            className="w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)]" 
             name="cargo" 
             value={form.cargo} 
             onChange={handleChange}
@@ -647,23 +647,23 @@ function EditForm({ user, onSubmit }) {
     <form className="grid grid-cols-2 gap-2 text-sm" onSubmit={handleSubmit}>
       <div>
         <label className="block text-xs font-medium mb-1">Nombre</label>
-        <input className="w-full border rounded-lg px-2 py-1.5 text-sm" placeholder="Nombre" name="nombre" value={form.nombre} onChange={handleChange} />
+        <input className="w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)]" placeholder="Nombre" name="nombre" value={form.nombre} onChange={handleChange} />
       </div>
       <div>
         <label className="block text-xs font-medium mb-1">Apellido</label>
-        <input className="w-full border rounded-lg px-2 py-1.5 text-sm" placeholder="Apellido" name="apellido" value={form.apellido} onChange={handleChange} />
+        <input className="w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)]" placeholder="Apellido" name="apellido" value={form.apellido} onChange={handleChange} />
       </div>
       <div>
         <label className="block text-xs font-medium mb-1">DNI (solo lectura)</label>
-        <input className="w-full border rounded-lg px-2 py-1.5 text-sm bg-gray-100" value={user.dni || ''} readOnly />
+        <input className="w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--muted)]/10 text-[var(--text)] opacity-70" value={user.dni || ''} readOnly />
       </div>
       <div>
         <label className="block text-xs font-medium mb-1">Correo</label>
-        <input className="w-full border rounded-lg px-2 py-1.5 text-sm" placeholder="correo@hospital.com" name="correo" value={form.correo} onChange={handleChange} />
+        <input className="w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)]" placeholder="correo@hospital.com" name="correo" value={form.correo} onChange={handleChange} />
       </div>
       <div>
         <label className="block text-xs font-medium mb-1">Rol</label>
-        <select className="w-full border rounded-lg px-2 py-1.5 text-sm" name="rol" value={form.rol} onChange={handleChange}>
+        <select className="w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)]" name="rol" value={form.rol} onChange={handleChange}>
           <option value="">Seleccionar rol</option>
           {ROLES_OPCIONES.map((r) => (
             <option key={r} value={r}>{r}</option>
@@ -672,7 +672,7 @@ function EditForm({ user, onSubmit }) {
       </div>
       <div>
         <label className="block text-xs font-medium mb-1">Área</label>
-        <select className="w-full border rounded-lg px-2 py-1.5 text-sm" name="area" value={form.area} onChange={handleChange}>
+        <select className="w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)]" name="area" value={form.area} onChange={handleChange}>
           <option value="">Seleccionar área</option>
           {AREAS_OPCIONES.map((a) => (
             <option key={a} value={a}>{a}</option>
@@ -681,7 +681,7 @@ function EditForm({ user, onSubmit }) {
       </div>
       <div>
         <label className="block text-xs font-medium mb-1">Cargo</label>
-        <select className="w-full border rounded-lg px-2 py-1.5 text-sm" name="cargo" value={form.cargo} onChange={handleChange}>
+        <select className="w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)]" name="cargo" value={form.cargo} onChange={handleChange}>
           <option value="">Seleccionar cargo</option>
           {CARGOS_OPCIONES.map((c) => (
             <option key={c} value={c}>{c}</option>
@@ -690,7 +690,7 @@ function EditForm({ user, onSubmit }) {
       </div>
       <div>
         <label className="block text-xs font-medium mb-1">Estado</label>
-        <select className="w-full border rounded-lg px-2 py-1.5 text-sm" name="estado" value={form.estado} onChange={handleChange}>
+        <select className="w-full border border-[var(--border)] rounded-lg px-2 py-1.5 text-sm bg-[var(--surface)] text-[var(--text)]" name="estado" value={form.estado} onChange={handleChange}>
           <option value="activo">Activo</option>
           <option value="inactivo">Inactivo</option>
         </select>
@@ -726,22 +726,22 @@ function DetailView({ user, onEditSchedule }) {
   return (
     <div className="grid gap-3">
       <div className="grid grid-cols-2 gap-3">
-        <div className="bg-white border border-[var(--border)] rounded-xl p-3 text-sm">
-          <p className="font-medium">Información del trabajador</p>
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3 text-sm">
+          <p className="font-medium text-[var(--text)]">Información del trabajador</p>
           <ul className="text-xs m-0">
-            <li><span className="text-[var(--muted)]">Nombre: </span>{user.nombre} {user.apellido}</li>
-            <li><span className="text-[var(--muted)]">Correo: </span>{user.correo}</li>
-            <li><span className="text-[var(--muted)]">Rol: </span>{user.rol}</li>
-            <li><span className="text-[var(--muted)]">DNI: </span>{user.dni}</li>
-            <li><span className="text-[var(--muted)]">Área: </span>{user.area}</li>
-            <li><span className="text-[var(--muted)]">Cargo: </span>{user.cargo}</li>
-            <li><span className="text-[var(--muted)]">Fecha de registro: </span>{user.fecha_registro}</li>
-            <li><span className="text-[var(--muted)]">Estado: </span>{user.estado}</li>
+            <li><span className="text-[var(--muted)]">Nombre: </span><span className="text-[var(--text)]">{user.nombre} {user.apellido}</span></li>
+            <li><span className="text-[var(--muted)]">Correo: </span><span className="text-[var(--text)]">{user.correo}</span></li>
+            <li><span className="text-[var(--muted)]">Rol: </span><span className="text-[var(--text)]">{user.rol}</span></li>
+            <li><span className="text-[var(--muted)]">DNI: </span><span className="text-[var(--text)]">{user.dni}</span></li>
+            <li><span className="text-[var(--muted)]">Área: </span><span className="text-[var(--text)]">{user.area}</span></li>
+            <li><span className="text-[var(--muted)]">Cargo: </span><span className="text-[var(--text)]">{user.cargo}</span></li>
+            <li><span className="text-[var(--muted)]">Fecha de registro: </span><span className="text-[var(--text)]">{user.fecha_registro}</span></li>
+            <li><span className="text-[var(--muted)]">Estado: </span><span className="text-[var(--text)]">{user.estado}</span></li>
           </ul>
         </div>
-        <div className="bg-white border border-[var(--border)] rounded-xl p-3 text-sm">
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3 text-sm">
           <div className="flex items-center justify-between">
-            <p className="font-medium">Horarios asignados</p>
+            <p className="font-medium text-[var(--text)]">Horarios asignados</p>
             <button className="px-3 py-1 rounded-full bg-primary text-white text-xs" onClick={() => onEditSchedule?.(user)}>
               Editar horarios
             </button>
@@ -753,7 +753,7 @@ function DetailView({ user, onEditSchedule }) {
           ) : horarios.length === 0 ? (
             <p className="text-xs text-[var(--muted)] mt-2">Sin horarios asignados</p>
           ) : (
-            <ul className="text-xs m-0 mt-2">
+            <ul className="text-xs m-0 mt-2 text-[var(--text)]">
               {horarios.map((h) => (
                 <li key={h.id} className="py-1 border-b last:border-0 border-[var(--border)]">
                   <span className="font-medium">{h.dia_semana}:</span> {h.hora_entrada}–{h.hora_salida}
@@ -952,17 +952,17 @@ const AssignScheduleForm = ({ userId, userName, onClose, onSuccess }) => {
 
       {/* Selección de días */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-[var(--text)] mb-2">
           Días de la semana
         </label>
         <div className="grid grid-cols-2 gap-2">
           {diasSemana.map(dia => (
-            <label key={dia} className="flex items-center space-x-2">
+            <label key={dia} className="flex items-center space-x-2 text-[var(--text)]">
               <input
                 type="checkbox"
                 checked={selectedDays.includes(dia)}
                 onChange={() => handleDayToggle(dia)}
-                className="rounded-lg border-gray-300"
+                className="rounded-lg border-[var(--border)] bg-[var(--surface)]"
               />
               <span className="text-xs">{dia}</span>
             </label>
@@ -971,7 +971,7 @@ const AssignScheduleForm = ({ userId, userName, onClose, onSuccess }) => {
         <div className="flex gap-2 mt-2">
           <button
             type="button"
-            className="px-3 py-1.5 text-xs rounded-full border"
+            className="px-3 py-1.5 text-xs rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)]"
             onClick={() => setSelectedDays(['Lunes','Martes','Miércoles','Jueves','Viernes'])}
             disabled={loading}
           >
@@ -979,7 +979,7 @@ const AssignScheduleForm = ({ userId, userName, onClose, onSuccess }) => {
           </button>
           <button
             type="button"
-            className="px-3 py-1.5 text-xs rounded-full border"
+            className="px-3 py-1.5 text-xs rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)]"
             onClick={() => setNotice('Horario copiado a todos los días seleccionados')}
             disabled={loading}
           >
@@ -991,26 +991,26 @@ const AssignScheduleForm = ({ userId, userName, onClose, onSuccess }) => {
       {/* Horarios */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-medium text-gray-700">
+          <label className="block text-xs font-medium text-[var(--text)]">
             Hora de Entrada
           </label>
           <input
             type="time"
             value={scheduleData.hora_entrada}
             onChange={(e) => setScheduleData(prev => ({...prev, hora_entrada: e.target.value}))}
-            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+            className="mt-1 block w-full rounded-lg border-[var(--border)] bg-[var(--surface)] text-[var(--text)] shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
             required
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-700">
+          <label className="block text-xs font-medium text-[var(--text)]">
             Hora de Salida
           </label>
           <input
             type="time"
             value={scheduleData.hora_salida}
             onChange={(e) => setScheduleData(prev => ({...prev, hora_salida: e.target.value}))}
-            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+            className="mt-1 block w-full rounded-lg border-[var(--border)] bg-[var(--surface)] text-[var(--text)] shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
             required
           />
         </div>
@@ -1019,18 +1019,18 @@ const AssignScheduleForm = ({ userId, userName, onClose, onSuccess }) => {
       {/* Hora de refrigerio */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-medium text-gray-700">
+          <label className="block text-xs font-medium text-[var(--text)]">
             Hora de Refrigerio (opcional)
           </label>
           <input
             type="time"
             value={scheduleData.hora_refrigerio}
             onChange={(e) => setScheduleData(prev => ({...prev, hora_refrigerio: e.target.value}))}
-            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+            className="mt-1 block w-full rounded-lg border-[var(--border)] bg-[var(--surface)] text-[var(--text)] shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-700">
+          <label className="block text-xs font-medium text-[var(--text)]">
             Duración Refrigerio (minutos)
           </label>
           <input
@@ -1040,20 +1040,20 @@ const AssignScheduleForm = ({ userId, userName, onClose, onSuccess }) => {
             step="15"
             value={scheduleData.duracion_refrigerio}
             onChange={(e) => setScheduleData(prev => ({...prev, duracion_refrigerio: parseInt(e.target.value)}))}
-            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+            className="mt-1 block w-full rounded-lg border-[var(--border)] bg-[var(--surface)] text-[var(--text)] shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
           />
         </div>
       </div>
 
       {/* Turno */}
       <div>
-        <label className="block text-xs font-medium text-gray-700">
+        <label className="block text-xs font-medium text-[var(--text)]">
           Turno
         </label>
         <select
           value={scheduleData.turno}
           onChange={(e) => setScheduleData(prev => ({...prev, turno: e.target.value}))}
-          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+          className="mt-1 block w-full rounded-lg border-[var(--border)] bg-[var(--surface)] text-[var(--text)] shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
         >
           <option value="mañana">Mañana</option>
           <option value="tarde">Tarde</option>
@@ -1066,7 +1066,7 @@ const AssignScheduleForm = ({ userId, userName, onClose, onSuccess }) => {
         <button
           type="button"
           onClick={onClose}
-          className="px-4 py-1.5 text-xs font-medium text-gray-700 bg-white border border-[var(--border)] rounded-full hover:bg-gray-50"
+          className="px-4 py-1.5 text-xs font-medium text-[var(--text)] bg-[var(--surface)] border border-[var(--border)] rounded-full hover:bg-[var(--muted)]/10"
           disabled={loading}
         >
           Cancelar

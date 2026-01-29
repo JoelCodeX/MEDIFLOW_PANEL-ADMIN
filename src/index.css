@@ -1,15 +1,50 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #D0EAD1; /* Verde menta muy claro para fondo general */
+  /* Modo Claro (Default) */
+  --bg: #D0EAD1; /* Verde menta muy claro */
   --surface: #ffffff; /* Superficie principal */
   --text: #161616; /* Texto principal */
-  --muted: #6b7280; /* Gris medio para texto secundario */
+  --muted: #6b7280; /* Gris medio */
   --primary: #55AB44; /* Verde corporativo */
-  --success: #a3d9a5; /* Verde lima para positivos */
-  --danger: #e63946; /* Rojo para alertas críticas */
+  --success: #a3d9a5; /* Verde lima */
+  --danger: #e63946; /* Rojo */
   --border: #e5e7eb; /* Borde suave */
-  --sidebar-bg: #def5e6; /* Tono de sidebar */
+  --sidebar-bg: #def5e6; /* Tono de sidebar claro */
+  --chart-tooltip-bg: #ffffff;
+  --chart-tooltip-text: #161616;
+
+  /* Card Gradients - Light */
+  --card-video-start: #e0f2fe; --card-video-end: #bfdbfe; --card-video-b1: #dbeafe; --card-video-b2: #93c5fd;
+  --card-imagen-start: #f5d0fe; --card-imagen-end: #fbcfe8; --card-imagen-b1: #fce7f3; --card-imagen-b2: #f0abfc;
+  --card-audio-start: #fef3c7; --card-audio-end: #fde68a; --card-audio-b1: #fef9c3; --card-audio-b2: #f59e0b;
+  --card-pdf-start: #fee2e2; --card-pdf-end: #fecaca; --card-pdf-b1: #fecaca; --card-pdf-b2: #ef4444;
+  --card-doc-start: #f1f5f9; --card-doc-end: #e2e8f0; --card-doc-b1: #e5e7eb; --card-doc-b2: #94a3b8;
+  --card-tip-start: #dcfce7; --card-tip-end: #bbf7d0; --card-tip-b1: #d1fae5; --card-tip-b2: #10b981;
+}
+
+/* Modo Oscuro */
+.dark {
+  --bg: #0f172a; /* Slate 900 */
+  --surface: #1e293b; /* Slate 800 */
+  --text: #f8fafc; /* Slate 50 */
+  --muted: #94a3b8; /* Slate 400 */
+  /* --primary se mantiene o se ajusta ligeramente */
+  --primary: #55AB44; 
+  --success: #059669; /* Emerald 600 - más legible en oscuro */
+  --danger: #f87171; /* Red 400 */
+  --border: #334155; /* Slate 700 */
+  --sidebar-bg: #1e293b; /* Igual a surface para consistencia */
+  --chart-tooltip-bg: #1e293b;
+  --chart-tooltip-text: #f8fafc;
+
+  /* Card Gradients - Dark */
+  --card-video-start: #0c4a6e; --card-video-end: #075985; --card-video-b1: #0ea5e9; --card-video-b2: #0284c7;
+  --card-imagen-start: #4a044e; --card-imagen-end: #701a75; --card-imagen-b1: #c026d3; --card-imagen-b2: #a21caf;
+  --card-audio-start: #451a03; --card-audio-end: #78350f; --card-audio-b1: #d97706; --card-audio-b2: #b45309;
+  --card-pdf-start: #450a0a; --card-pdf-end: #7f1d1d; --card-pdf-b1: #dc2626; --card-pdf-b2: #b91c1c;
+  --card-doc-start: #0f172a; --card-doc-end: #1e293b; --card-doc-b1: #334155; --card-doc-b2: #475569;
+  --card-tip-start: #022c22; --card-tip-end: #064e3b; --card-tip-b1: #059669; --card-tip-b2: #047857;
 }
 
 /* Tailwind v4 theme tokens */

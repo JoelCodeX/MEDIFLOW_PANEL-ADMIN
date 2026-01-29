@@ -14,7 +14,7 @@ function StatWidget({ label, value, delta, items = [], compact = false, dense = 
         aria-label={label}
         style={{ background: 'conic-gradient(var(--primary) 0 40%, #a5b4fc 40% 70%, #93c5fd 70% 100%)' }}
       >
-        <div className={`bg-white ${innerClass} rounded-full grid place-items-center shadow-sm`}>
+        <div className={`bg-[var(--surface)] ${innerClass} rounded-full grid place-items-center shadow-sm`}>
           <div className={valueClass}>{value}</div>
           <div className={deltaClass}>{delta}</div>
         </div>

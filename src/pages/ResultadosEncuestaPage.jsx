@@ -169,13 +169,13 @@ function ResultadosEncuestaPage() {
             <label className="text-xs text-[var(--muted)]">Fecha:</label>
             <input
               type="date"
-              className="px-2 py-1 rounded-full border text-[11px] bg-white"
+              className="px-2 py-1 rounded-full border text-[11px] bg-[var(--surface)] text-[var(--text)]"
               value={fechaFiltro}
               onChange={(e) => setFechaFiltro(e.target.value)}
             />
             <button
               type="button"
-              className="px-2 py-1 rounded-full border text-[11px] bg-white hover:bg-gray-50"
+              className="px-2 py-1 rounded-full border text-[11px] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--bg)]"
               onClick={() => setFechaFiltro(hoyStr)}
               title="Volver a hoy"
             >Hoy</button>
@@ -183,11 +183,11 @@ function ResultadosEncuestaPage() {
           <button
             type="button"
             onClick={reload}
-            className="px-3 py-1 rounded-full border text-[11px] bg-white hover:bg-gray-50"
+            className="px-3 py-1 rounded-full border border-[var(--border)] text-[11px] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--bg)]"
             aria-label="Recargar resultados"
             disabled={loading}
           >{loading ? 'Cargando…' : 'Recargar'}</button>
-          <Link className="px-3 py-1 rounded-full border text-[11px] bg-white hover:bg-gray-50" to="/encuestas">Volver</Link>
+          <Link className="px-3 py-1 rounded-full border border-[var(--border)] text-[11px] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--bg)]" to="/encuestas">Volver</Link>
         </div>
       </div>
 
@@ -198,13 +198,13 @@ function ResultadosEncuestaPage() {
       )}
 
       {loading && (
-        <div className="bg-white border border-[var(--border)] rounded-xl p-4">
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4">
           <p className="m-0 text-sm">Cargando resultados...</p>
         </div>
       )}
 
       {!loading && error && (
-        <div className="bg-white border border-[var(--border)] rounded-xl p-4">
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4">
           <p className="m-0 text-sm text-red-600">{error}</p>
         </div>
       )}
@@ -213,7 +213,7 @@ function ResultadosEncuestaPage() {
         <>
           {/* Resumen general */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
               <div className="flex items-center gap-1.5">
                 <span className="w-7 h-7 rounded-full bg-[#3b82f6]/15 grid place-items-center">
                   <svg className="w-3 h-3 text-[#3b82f6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -229,7 +229,7 @@ function ResultadosEncuestaPage() {
                 </div>
               </div>
             </div>
-            <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
               <div className="flex items-center gap-1.5">
                 <span className="w-7 h-7 rounded-full bg-[#55AB44]/15 grid place-items-center">
                   <svg className="w-3 h-3 text-[#55AB44]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -243,7 +243,7 @@ function ResultadosEncuestaPage() {
                 </div>
               </div>
             </div>
-            <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
               <div className="flex items-center gap-1.5">
                 <span className="w-7 h-7 rounded-full bg-[#f59e0b]/15 grid place-items-center">
                   <svg className="w-3 h-3 text-[#f59e0b]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -256,7 +256,7 @@ function ResultadosEncuestaPage() {
                 </div>
               </div>
             </div>
-            <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
               <div className="flex items-center gap-1.5">
                 <span className="w-7 h-7 rounded-full bg-[#10b981]/15 grid place-items-center">
                   <svg className="w-3 h-3 text-[#10b981]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -301,7 +301,7 @@ function ResultadosEncuestaPage() {
               <div className="overflow-auto">
                 <table className="w-full border-collapse text-sm">
                   <thead>
-                    <tr className="text-[var(--muted)] font-semibold">
+                    <tr className="text-[var(--text)] font-semibold">
                       <th className="px-2 py-1.5 border-b border-[var(--border)] text-left">Área</th>
                       <th className="px-2 py-1.5 border-b border-[var(--border)] text-left">Respondidos</th>
                       <th className="px-2 py-1.5 border-b border-[var(--border)] text-left">Promedio</th>
@@ -347,13 +347,13 @@ function ResultadosEncuestaPage() {
             <div className="overflow-auto">
               {/* Filtros */}
               <div className="flex flex-wrap gap-2 mb-2">
-                <select className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-[11px]" value={filtroArea} onChange={(e) => setFiltroArea(e.target.value)}>
+                <select className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-[11px]" value={filtroArea} onChange={(e) => setFiltroArea(e.target.value)}>
                   <option value="">Área: Todas</option>
                   {areasDisponibles.map(a => (
                     <option key={a} value={a}>{a}</option>
                   ))}
                 </select>
-                <select className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-[11px]" value={filtroEstado} onChange={(e) => setFiltroEstado(e.target.value)}>
+                <select className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-[11px]" value={filtroEstado} onChange={(e) => setFiltroEstado(e.target.value)}>
                   <option value="">Estado: Todos</option>
                   <option value="pendiente">Pendiente</option>
                   <option value="respondida">Respondida</option>
@@ -361,7 +361,7 @@ function ResultadosEncuestaPage() {
               </div>
               <table className="w-full border-collapse text-xs">
                 <thead>
-                  <tr className="text-[var(--muted)] font-semibold">
+                  <tr className="text-[var(--text)] font-semibold">
                     <th className="px-2 py-1.5 border-b border-[var(--border)] text-left">Trabajador</th>
                     <th className="px-2 py-1.5 border-b border-[var(--border)] text-left">Área</th>
                     <th className="px-2 py-1.5 border-b border-[var(--border)] text-left">Estado</th>
@@ -392,7 +392,7 @@ function ResultadosEncuestaPage() {
                       <td className="px-2 py-1.5 border-b border-[var(--border)]">{a.nivel_riesgo || '—'}</td>
                       <td className="px-2 py-1.5 border-b border-[var(--border)]">
                         <button
-                          className={`px-2 py-0.5 rounded-full border ${respondieronHoySet.has(a.id_usuario) ? 'bg-white hover:bg-primary/10' : 'bg-gray-50 text-[var(--muted)]'} text-[11px]`}
+                          className={`px-2 py-0.5 rounded-full border ${respondieronHoySet.has(a.id_usuario) ? 'bg-[var(--surface)] text-[var(--text)] hover:bg-primary/10' : 'bg-[var(--bg)] text-[var(--muted)]'} text-[11px]`}
                           onClick={() => openResps(a)}
                           aria-label="Ver respuestas del usuario"
                           title={respondieronHoySet.has(a.id_usuario) ? 'Ver respuestas' : 'Aún no ha respondido'}

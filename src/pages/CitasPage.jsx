@@ -183,27 +183,27 @@ function CitasPage() {
         <div className="flex flex-wrap items-center gap-2 mb-2 text-xs">
           <input
             type="text"
-            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-40 sm:w-56"
+            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-40 sm:w-56 bg-[var(--surface)] text-[var(--text)]"
             placeholder="Buscar por trabajador"
             value={searchUsuario}
             onChange={(e) => setSearchUsuario(e.target.value)}
           />
-          <select className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-34" value={estado} onChange={(e) => setEstado(e.target.value)}>
+          <select className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-34 bg-[var(--surface)] text-[var(--text)]" value={estado} onChange={(e) => setEstado(e.target.value)}>
             <option value="">Estado</option>
             <option value="programada">Programada</option>
             <option value="completada">Completada</option>
             <option value="cancelada">Cancelada</option>
           </select>
-          <select className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-34" value={tipo} onChange={(e) => setTipo(e.target.value)}>
+          <select className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-34 bg-[var(--surface)] text-[var(--text)]" value={tipo} onChange={(e) => setTipo(e.target.value)}>
             <option value="">Tipo</option>
             <option value="medica">Médica</option>
             <option value="psicologica">Psicológica</option>
             <option value="ergonomica">Ergonómica</option>
           </select>
-          <input type="date" className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-36" value={desde} onChange={(e) => setDesde(e.target.value)} />
+          <input type="date" className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-36 bg-[var(--surface)] text-[var(--text)]" value={desde} onChange={(e) => setDesde(e.target.value)} />
           <span className="text-[var(--muted)] text-xs">a</span>
-          <input type="date" className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-36" value={hasta} onChange={(e) => setHasta(e.target.value)} />
-          <button className="ml-auto px-3 py-1.5 rounded-full border border-[var(--border)] bg-white text-xs" onClick={() => { setSearchUsuario(''); setEstado(''); setTipo(''); setDesde(''); setHasta('') }}>Limpiar</button>
+          <input type="date" className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-36 bg-[var(--surface)] text-[var(--text)]" value={hasta} onChange={(e) => setHasta(e.target.value)} />
+          <button className="ml-auto px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={() => { setSearchUsuario(''); setEstado(''); setTipo(''); setDesde(''); setHasta('') }}>Limpiar</button>
           <button className="px-3 py-1.5 rounded-full border bg-primary text-white text-xs" onClick={openModal}>Nueva cita</button>
         </div>
       </Card>
@@ -212,7 +212,7 @@ function CitasPage() {
       <Card title="Lista de citas" compact minH={280}>
         <table className="w-full border-collapse">
           <thead>
-            <tr className="text-[var(--muted)] font-semibold">
+            <tr className="text-[var(--text)] font-semibold">
               <th className="text-left px-3 py-2 border-b">Trabajador</th>
               <th className="text-left px-3 py-2 border-b">Profesional</th>
               <th className="text-left px-3 py-2 border-b">Tipo</th>
@@ -258,7 +258,7 @@ function CitasPage() {
          </div>
          <div className="flex items-center gap-2">
            <button
-             className="px-3 py-1.5 rounded-full border bg-white text-xs disabled:opacity-50"
+             className="px-3 py-1.5 rounded-full border bg-[var(--surface)] text-[var(--text)] text-xs disabled:opacity-50"
              onClick={() => setPage(p => Math.max(1, p - 1))}
              disabled={page <= 1}
            >Anterior</button>
@@ -285,7 +285,7 @@ function CitasPage() {
                typeof p === 'number' ? (
                  <button
                    key={`p-${p}`}
-                   className={`px-2.5 py-1 rounded-full border text-xs ${p === page ? 'bg-primary text-white' : 'bg-white'}`}
+                   className={`px-2.5 py-1 rounded-full border text-xs ${p === page ? 'bg-primary text-white' : 'bg-[var(--surface)] text-[var(--text)]'}`}
                    onClick={() => setPage(p)}
                  >{p}</button>
                ) : (
@@ -305,10 +305,10 @@ function CitasPage() {
       {/* Modal: Nueva cita */}
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black/30 grid place-items-center p-4">
-          <div className="bg-white rounded-xl border border-[var(--border)] shadow-xl w-full max-w-md overflow-hidden">
+          <div className="bg-[var(--surface)] rounded-xl border border-[var(--border)] shadow-xl w-full max-w-md overflow-hidden text-[var(--text)]">
             <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--border)]">
               <h3 className="text-base font-semibold">Nueva cita</h3>
-              <button className="px-2 py-1 rounded-md border" onClick={closeModal}>Cerrar</button>
+              <button className="px-2 py-1 rounded-md border border-[var(--border)] text-[var(--text)]" onClick={closeModal}>Cerrar</button>
             </div>
             <div className="p-3 grid gap-2">
               <label className="text-sm">Trabajador
@@ -360,11 +360,11 @@ function CitasPage() {
                 ) : null
               })()}
               <label className="text-sm">Observaciones
-                <textarea className="border rounded-md px-2 py-1 w-full text-xs" rows={3} value={form.observaciones} onChange={(e) => setForm({ ...form, observaciones: e.target.value })} />
+                <textarea className="border border-[var(--border)] rounded-md px-2 py-1 w-full text-xs bg-[var(--surface)] text-[var(--text)]" rows={3} value={form.observaciones} onChange={(e) => setForm({ ...form, observaciones: e.target.value })} />
               </label>
               {error && <div className="text-sm text-red-600">{error}</div>}
               <div className="flex justify-end gap-2">
-                <button className="px-3 py-1.5 rounded-full border text-xs" onClick={closeModal}>Cancelar</button>
+                <button className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={closeModal}>Cancelar</button>
                 {(() => {
                   const tipoDuplicado = (workerCitas || []).some(c => (c.estado || 'programada') === 'programada' && c.tipo === form.tipo)
                   const sel = form.fecha_cita ? new Date(form.fecha_cita) : null

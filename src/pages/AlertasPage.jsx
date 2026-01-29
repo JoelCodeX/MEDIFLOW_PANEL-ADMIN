@@ -203,27 +203,28 @@ function AlertasPage() {
 
   function RiskBadge({ riesgo }) {
     const map = {
-      alto: { bg: '#ffeaea', color: '#ef4444', label: 'Alto' },
-      moderado: { bg: '#fff3e6', color: '#f59e0b', label: 'Moderado' },
+      alto: 'bg-red-50 text-red-600 dark:bg-red-900/40 dark:text-red-300',
+      moderado: 'bg-amber-50 text-amber-600 dark:bg-amber-900/40 dark:text-amber-300',
     }
-    const s = map[riesgo] || { bg: '#f3f4f6', color: '#6b7280', label: riesgo }
+    const className = map[riesgo] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300'
     return (
-      <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold" style={{ backgroundColor: s.bg, color: s.color }}>
-        {s.label || riesgo}
+      <span className={`px-2 py-0.5 rounded-full text-[11px] font-semibold ${className}`}>
+        {riesgo === 'alto' ? 'Alto' : riesgo === 'moderado' ? 'Moderado' : riesgo}
       </span>
     )
   }
 
   function EstadoBadge({ estado }) {
     const map = {
-      pendiente: { bg: '#f3f4f6', color: '#6b7280', label: 'Pendiente' },
-      en_proceso: { bg: '#e7f5ff', color: '#3b82f6', label: 'En proceso' },
-      atendida: { bg: '#eaf7ea', color: '#55AB44', label: 'Atendida' },
+      pendiente: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300',
+      en_proceso: 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300',
+      atendida: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-300',
     }
-    const s = map[estado] || { bg: '#f3f4f6', color: '#6b7280', label: estado }
+    const className = map[estado] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300'
+    const labelMap = { pendiente: 'Pendiente', en_proceso: 'En proceso', atendida: 'Atendida' }
     return (
-      <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold" style={{ backgroundColor: s.bg, color: s.color }}>
-        {s.label || estado}
+      <span className={`px-2 py-0.5 rounded-full text-[11px] font-semibold ${className}`}>
+        {labelMap[estado] || estado}
       </span>
     )
   }
@@ -269,7 +270,7 @@ function AlertasPage() {
           </select>
           <input type="date" className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-36" value={fechaDesde} onChange={(e) => setFechaDesde(e.target.value)} />
           <input type="date" className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-36" value={fechaHasta} onChange={(e) => setFechaHasta(e.target.value)} />
-          <button className="ml-auto px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs" onClick={() => { setSearch(''); setNivel(''); setEstado(''); setArea(''); setFechaDesde(''); setFechaHasta('') }}>Limpiar</button>
+          <button className="ml-auto px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs hover:bg-[var(--border)] transition-colors" onClick={() => { setSearch(''); setNivel(''); setEstado(''); setArea(''); setFechaDesde(''); setFechaHasta('') }}>Limpiar</button>
         </div>
       </Card>
 
@@ -289,14 +290,14 @@ function AlertasPage() {
         </div>
         <table className="w-full border-collapse">
           <thead>
-            <tr className="text-[var(--muted)] font-semibold text-xs">
-              <th className="text-left px-3 py-2 border-b">Usuario</th>
-              <th className="text-left px-3 py-2 border-b">Área</th>
-              <th className="text-left px-3 py-2 border-b">Tipo</th>
-              <th className="text-left px-3 py-2 border-b">Riesgo</th>
-              <th className="text-left px-3 py-2 border-b">Estado</th>
-              <th className="text-left px-3 py-2 border-b">Fecha</th>
-              <th className="text-left px-3 py-2 border-b">Acciones</th>
+            <tr className="text-[var(--text)] font-semibold text-xs">
+              <th className="text-left px-3 py-2 border-b border-[var(--border)]">Usuario</th>
+              <th className="text-left px-3 py-2 border-b border-[var(--border)]">Área</th>
+              <th className="text-left px-3 py-2 border-b border-[var(--border)]">Tipo</th>
+              <th className="text-left px-3 py-2 border-b border-[var(--border)]">Riesgo</th>
+              <th className="text-left px-3 py-2 border-b border-[var(--border)]">Estado</th>
+              <th className="text-left px-3 py-2 border-b border-[var(--border)]">Fecha</th>
+              <th className="text-left px-3 py-2 border-b border-[var(--border)]">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -304,16 +305,16 @@ function AlertasPage() {
               const u = usersMap[a.id_usuario]
               return (
                 <tr key={a.id}>
-                  <td className="px-3 py-2 border-b text-xs">{u ? `${u.nombre} ${u.apellido}` : `ID ${a.id_usuario}`}</td>
-                  <td className="px-3 py-2 border-b text-xs">{u?.area || 'N/A'}</td>
-                  <td className="px-3 py-2 border-b text-xs">{a.tipo}</td>
-                  <td className="px-3 py-2 border-b text-xs"><RiskBadge riesgo={a.nivel} /></td>
-                  <td className="px-3 py-2 border-b text-xs"><EstadoBadge estado={a.estado} /></td>
-                  <td className="px-3 py-2 border-b text-xs">{a.fecha_creacion}</td>
-                  <td className="px-3 py-2 border-b text-xs">
+                  <td className="px-3 py-2 border-b border-[var(--border)] text-xs">{u ? `${u.nombre} ${u.apellido}` : `ID ${a.id_usuario}`}</td>
+                  <td className="px-3 py-2 border-b border-[var(--border)] text-xs">{u?.area || 'N/A'}</td>
+                  <td className="px-3 py-2 border-b border-[var(--border)] text-xs">{a.tipo}</td>
+                  <td className="px-3 py-2 border-b border-[var(--border)] text-xs"><RiskBadge riesgo={a.nivel} /></td>
+                  <td className="px-3 py-2 border-b border-[var(--border)] text-xs"><EstadoBadge estado={a.estado} /></td>
+                  <td className="px-3 py-2 border-b border-[var(--border)] text-xs">{a.fecha_creacion}</td>
+                  <td className="px-3 py-2 border-b border-[var(--border)] text-xs">
                     <div className="flex items-center gap-2">
                       <button
-                        className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 bg-white text-gray-600 hover:text-white hover:bg-[#3b82f6] hover:border-[#3b82f6] transition-colors"
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:text-white hover:bg-[#3b82f6] hover:border-[#3b82f6] transition-colors"
                         onClick={() => setDetalle(a)}
                         title="Ver detalle"
                         aria-label="Ver detalle"
@@ -321,7 +322,7 @@ function AlertasPage() {
                         <FiEye size={16} />
                       </button>
                       <button
-                        className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 bg-white text-gray-600 hover:text-white hover:bg-[#55AB44] hover:border-[#55AB44] transition-colors"
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:text-white hover:bg-[#55AB44] hover:border-[#55AB44] transition-colors"
                         onClick={() => handleOpenCita(a.id_usuario)}
                         title="Programar cita"
                         aria-label="Programar cita"
@@ -329,7 +330,7 @@ function AlertasPage() {
                         <CiCalendar size={16} />
                       </button>
                       <button
-                        className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 bg-white text-gray-600 hover:text-white hover:bg-amber-500 hover:border-amber-500 transition-colors"
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:text-white hover:bg-amber-500 hover:border-amber-500 transition-colors"
                         onClick={() => handleEnviarMensaje(a.id_usuario)}
                         title="Enviar mensaje"
                         aria-label="Enviar mensaje"
@@ -337,14 +338,14 @@ function AlertasPage() {
                         <FiMessageSquare size={16} />
                       </button>
                       <button
-                        className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 bg-white text-gray-600 hover:text-white hover:bg-[#55AB44] hover:border-[#55AB44] transition-colors"
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:text-white hover:bg-[#55AB44] hover:border-[#55AB44] transition-colors"
                         onClick={() => handleAtender(a.id, a.observacion)}
                         title="Marcar atendida"
                         aria-label="Marcar atendida"
                       >
                         <FiCheckCircle size={16} />
                       </button>
-                      <select className="border rounded-full px-2 py-1 text-xs" value={a.estado} onChange={(e) => handleEstado(a.id, e.target.value)}>
+                      <select className="border border-[var(--border)] rounded-full px-2 py-1 text-xs bg-[var(--surface)] text-[var(--text)]" value={a.estado} onChange={(e) => handleEstado(a.id, e.target.value)}>
                         <option value="pendiente">Pendiente</option>
                         <option value="en_proceso">En proceso</option>
                         <option value="atendida">Atendida</option>
@@ -364,10 +365,10 @@ function AlertasPage() {
       {/* Modal de detalle */}
       {detalle && (
         <div className="fixed inset-0 z-50 bg-black/30 grid place-items-center p-4">
-          <div className="bg-white rounded-xl border border-[var(--border)] shadow-xl w-full max-w-2xl overflow-hidden">
+          <div className="bg-[var(--surface)] rounded-xl border border-[var(--border)] shadow-xl w-full max-w-2xl overflow-hidden text-[var(--text)]">
             <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--border)]">
               <h3 className="text-base font-semibold">Detalle de alerta</h3>
-              <button className="px-2 py-1 rounded-md border" onClick={() => setDetalle(null)}>Cerrar</button>
+              <button className="px-2 py-1 rounded-md border border-[var(--border)] hover:bg-[var(--muted)]/10" onClick={() => setDetalle(null)}>Cerrar</button>
             </div>
             <div className="p-3">
               <p><span className="text-[var(--muted)]">Usuario:</span> {usersMap[detalle.id_usuario]?.nombre || `ID ${detalle.id_usuario}`}</p>
@@ -385,7 +386,7 @@ function AlertasPage() {
       <Card title="Mapa de calor por área" compact>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {areaHeat.map((x) => (
-            <div key={x.area} className="p-2 rounded-md border" style={{ background: `rgba(59, 130, 246, ${x.intensity * 0.2})` }}>
+            <div key={x.area} className="p-2 rounded-md border border-[var(--border)]" style={{ background: `rgba(59, 130, 246, ${x.intensity * 0.2})` }}>
               <p className="m-0 text-sm font-medium">{x.area}</p>
               <p className="m-0 text-xs text-[var(--muted)]">{x.count} alertas activas</p>
             </div>
@@ -396,14 +397,14 @@ function AlertasPage() {
       {/* Modal: Generar Cita */}
       {showCitaModal && (
         <div className="fixed inset-0 z-50 bg-black/30 grid place-items-center p-4">
-          <div className="bg-white rounded-xl border border-[var(--border)] shadow-xl w-full max-w-md overflow-hidden">
+          <div className="bg-[var(--surface)] rounded-xl border border-[var(--border)] shadow-xl w-full max-w-md overflow-hidden text-[var(--text)]">
             <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--border)]">
               <h3 className="text-base font-semibold">Generar cita</h3>
-              <button className="px-2 py-1 rounded-md border" onClick={() => setShowCitaModal(false)}>Cerrar</button>
+              <button className="px-2 py-1 rounded-md border border-[var(--border)] hover:bg-[var(--muted)]/10" onClick={() => setShowCitaModal(false)}>Cerrar</button>
             </div>
             <div className="p-3 grid gap-2">
               <label className="text-sm">Tipo
-                <select className="border rounded-md px-2 py-1 w-full" value={citaForm.tipo} onChange={(e) => setCitaForm({ ...citaForm, tipo: e.target.value })}>
+                <select className="border border-[var(--border)] rounded-md px-2 py-1 w-full bg-[var(--surface)] text-[var(--text)]" value={citaForm.tipo} onChange={(e) => setCitaForm({ ...citaForm, tipo: e.target.value })}>
                   <option value="medica">Médica</option>
                   <option value="psicologica">Psicológica</option>
                   <option value="ergonomica">Ergonómica</option>

@@ -63,27 +63,27 @@ function ConfiguracionPage() {
       <h1 className="text-base font-semibold">Configuración del Sistema</h1>
 
       {/* Gestión de roles */}
-      <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
         <div className="flex items-center justify-between mb-2">
           <p className="m-0 text-sm font-medium">Gestión de roles</p>
-          <button className="px-3 py-1 rounded-full border text-sm" onClick={guardarRoles}>Guardar roles</button>
+          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm" onClick={guardarRoles}>Guardar roles</button>
         </div>
         <div className="overflow-auto">
           <table className="w-full border-collapse">
             <thead>
               <tr className="text-[var(--muted)] text-xs">
-                <th className="text-left px-2 py-1 border-b">Rol</th>
+                <th className="text-left px-2 py-1 border-b border-[var(--border)]">Rol</th>
                 {['personal','alertas','reportes','bienestar','citas','configuracion'].map(k => (
-                  <th key={`h-${k}`} className="text-left px-2 py-1 border-b capitalize">{k}</th>
+                  <th key={`h-${k}`} className="text-left px-2 py-1 border-b border-[var(--border)] capitalize">{k}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {roles.map((r, i) => (
                 <tr key={r.rol} className="text-sm">
-                  <td className="px-2 py-1 border-b font-medium">{r.rol}</td>
+                  <td className="px-2 py-1 border-b border-[var(--border)] font-medium">{r.rol}</td>
                   {Object.keys(r.permisos).map((k) => (
-                    <td key={`${r.rol}-${k}`} className="px-2 py-1 border-b">
+                    <td key={`${r.rol}-${k}`} className="px-2 py-1 border-b border-[var(--border)]">
                       <input type="checkbox" checked={r.permisos[k]} onChange={() => togglePermiso(i, k)} />
                     </td>
                   ))}
@@ -95,79 +95,79 @@ function ConfiguracionPage() {
       </div>
 
       {/* Preferencias del sistema */}
-      <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
         <div className="flex items-center justify-between mb-2">
           <p className="m-0 text-sm font-medium">Preferencias del sistema</p>
-          <button className="px-3 py-1 rounded-full border text-sm" onClick={guardarPreferencias}>Guardar preferencias</button>
+          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm" onClick={guardarPreferencias}>Guardar preferencias</button>
         </div>
         <div className="grid grid-cols-3 gap-2">
           <div>
             <label className="block text-xs text-[var(--muted)] mb-1">Nombre institucional</label>
-            <input className="w-full border rounded-md px-3 py-2 text-sm" value={preferencias.nombreInstitucion} onChange={e => setPreferencias(s => ({ ...s, nombreInstitucion: e.target.value }))} />
+            <input className="w-full border border-[var(--border)] rounded-md px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]" value={preferencias.nombreInstitucion} onChange={e => setPreferencias(s => ({ ...s, nombreInstitucion: e.target.value }))} />
           </div>
           <div>
             <label className="block text-xs text-[var(--muted)] mb-1">Color primario</label>
-            <input type="color" className="w-full border rounded-md h-[36px]" value={preferencias.colorPrimario} onChange={e => setPreferencias(s => ({ ...s, colorPrimario: e.target.value }))} />
+            <input type="color" className="w-full border border-[var(--border)] rounded-md h-[36px] bg-[var(--surface)]" value={preferencias.colorPrimario} onChange={e => setPreferencias(s => ({ ...s, colorPrimario: e.target.value }))} />
           </div>
           <div>
             <label className="block text-xs text-[var(--muted)] mb-1">Logo (URL)</label>
-            <input className="w-full border rounded-md px-3 py-2 text-sm" value={preferencias.logoUrl} onChange={e => setPreferencias(s => ({ ...s, logoUrl: e.target.value }))} />
+            <input className="w-full border border-[var(--border)] rounded-md px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]" value={preferencias.logoUrl} onChange={e => setPreferencias(s => ({ ...s, logoUrl: e.target.value }))} />
           </div>
         </div>
       </div>
 
       {/* Seguridad y autenticación */}
-      <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
         <p className="m-0 mb-2 text-sm font-medium">Seguridad y autenticación</p>
         <div className="grid grid-cols-3 gap-2 items-end">
           <div className="col-span-2">
             <label className="block text-xs text-[var(--muted)] mb-1">Correo del usuario para reset</label>
-            <input className="w-full border rounded-md px-3 py-2 text-sm" placeholder="usuario@dominio.com" value={emailReset} onChange={e => setEmailReset(e.target.value)} />
+            <input className="w-full border border-[var(--border)] rounded-md px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]" placeholder="usuario@dominio.com" value={emailReset} onChange={e => setEmailReset(e.target.value)} />
           </div>
-          <button className="px-3 py-2 rounded-md border" onClick={resetearContrasena}>Resetear contraseña</button>
+          <button className="px-3 py-2 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--text)]" onClick={resetearContrasena}>Resetear contraseña</button>
           <div className="col-span-3">
-            <button className="px-3 py-2 rounded-md border" onClick={cerrarSesiones}>Cerrar sesiones activas</button>
+            <button className="px-3 py-2 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--text)]" onClick={cerrarSesiones}>Cerrar sesiones activas</button>
           </div>
         </div>
       </div>
 
       {/* Integraciones externas */}
-      <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
         <div className="flex items-center justify-between mb-2">
           <p className="m-0 text-sm font-medium">Integraciones externas</p>
-          <button className="px-3 py-1 rounded-full border text-sm" onClick={guardarIntegraciones}>Guardar integraciones</button>
+          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm" onClick={guardarIntegraciones}>Guardar integraciones</button>
         </div>
         <div className="grid grid-cols-2 gap-2">
           <div>
             <label className="block text-xs text-[var(--muted)] mb-1">Supabase URL</label>
-            <input className="w-full border rounded-md px-3 py-2 text-sm" value={integraciones.supabaseUrl} onChange={e => setIntegraciones(s => ({ ...s, supabaseUrl: e.target.value }))} />
+            <input className="w-full border border-[var(--border)] rounded-md px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]" value={integraciones.supabaseUrl} onChange={e => setIntegraciones(s => ({ ...s, supabaseUrl: e.target.value }))} />
           </div>
           <div>
             <label className="block text-xs text-[var(--muted)] mb-1">Supabase Key</label>
-            <input className="w-full border rounded-md px-3 py-2 text-sm" value={integraciones.supabaseKey} onChange={e => setIntegraciones(s => ({ ...s, supabaseKey: e.target.value }))} />
+            <input className="w-full border border-[var(--border)] rounded-md px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]" value={integraciones.supabaseKey} onChange={e => setIntegraciones(s => ({ ...s, supabaseKey: e.target.value }))} />
           </div>
           <div>
             <label className="block text-xs text-[var(--muted)] mb-1">FCM Server Key</label>
-            <input className="w-full border rounded-md px-3 py-2 text-sm" value={integraciones.fcmKey} onChange={e => setIntegraciones(s => ({ ...s, fcmKey: e.target.value }))} />
+            <input className="w-full border border-[var(--border)] rounded-md px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]" value={integraciones.fcmKey} onChange={e => setIntegraciones(s => ({ ...s, fcmKey: e.target.value }))} />
           </div>
           <div>
             <label className="block text-xs text-[var(--muted)] mb-1">API Base URL</label>
-            <input className="w-full border rounded-md px-3 py-2 text-sm" value={integraciones.apiBase} onChange={e => setIntegraciones(s => ({ ...s, apiBase: e.target.value }))} />
+            <input className="w-full border border-[var(--border)] rounded-md px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)]" value={integraciones.apiBase} onChange={e => setIntegraciones(s => ({ ...s, apiBase: e.target.value }))} />
           </div>
         </div>
       </div>
 
       {/* Respaldo de datos */}
-      <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
         <p className="m-0 mb-2 text-sm font-medium">Respaldo de datos</p>
         <div className="flex flex-wrap gap-2">
-          <button className="px-3 py-1.5 rounded-full border text-sm" onClick={exportarRoles}>Exportar roles (CSV)</button>
-          <button className="px-3 py-1.5 rounded-full border text-sm" onClick={exportarParametros}>Exportar parámetros (CSV)</button>
+          <button className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm" onClick={exportarRoles}>Exportar roles (CSV)</button>
+          <button className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm" onClick={exportarParametros}>Exportar parámetros (CSV)</button>
         </div>
       </div>
 
       {/* Acerca de / versión */}
-      <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
         <p className="m-0 mb-1 text-sm font-medium">Acerca de</p>
         <div className="text-sm">
           <p className="m-0">MediFlow — Plataforma de salud ocupacional.</p>

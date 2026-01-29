@@ -612,10 +612,10 @@ function ReportesPage() {
 
           {/* Fila 2: fechas, textos y acciones */}
           <div className="flex items-center gap-2 flex-wrap">
-            <input type="date" className="border border-[var(--border)] rounded-full px-2 py-1 text-xs w-[140px] shrink-0" value={desde} onChange={(e) => setDesde(e.target.value)} />
-            <input type="date" className="border border-[var(--border)] rounded-full px-2 py-1 text-xs w-[140px] shrink-0" value={hasta} onChange={(e) => setHasta(e.target.value)} />
-            <input className="border border-[var(--border)] rounded-full px-2 py-1 text-xs w-[180px] shrink-0" placeholder="Generado por" value={generadoPor} onChange={(e) => setGeneradoPor(e.target.value)} />
-            <input className="border border-[var(--border)] rounded-full px-2 py-1 text-xs w-[160px] shrink-0" placeholder="Firma" value={firma} onChange={(e) => setFirma(e.target.value)} />
+            <input type="date" className="border border-[var(--border)] rounded-full px-2 py-1 text-xs w-[140px] shrink-0 bg-[var(--surface)] text-[var(--text)]" value={desde} onChange={(e) => setDesde(e.target.value)} />
+            <input type="date" className="border border-[var(--border)] rounded-full px-2 py-1 text-xs w-[140px] shrink-0 bg-[var(--surface)] text-[var(--text)]" value={hasta} onChange={(e) => setHasta(e.target.value)} />
+            <input className="border border-[var(--border)] rounded-full px-2 py-1 text-xs w-[180px] shrink-0 bg-[var(--surface)] text-[var(--text)]" placeholder="Generado por" value={generadoPor} onChange={(e) => setGeneradoPor(e.target.value)} />
+            <input className="border border-[var(--border)] rounded-full px-2 py-1 text-xs w-[160px] shrink-0 bg-[var(--surface)] text-[var(--text)]" placeholder="Firma" value={firma} onChange={(e) => setFirma(e.target.value)} />
             <div className="flex items-center gap-2 ml-auto">
               {loadingData && (
                 <div className="text-xs text-[var(--muted)] flex items-center gap-1">
@@ -626,9 +626,9 @@ function ReportesPage() {
                   <span>Cargando…</span>
                 </div>
               )}
-              <button className="px-2 py-1 rounded-full border border-[var(--border)] bg-white text-xs" onClick={clearFilters}>Limpiar</button>
-              <button className="px-2 py-1 rounded-full border border-[var(--border)] bg-white text-xs flex items-center gap-1" onClick={exportPDF}><IconFileText /> <span>PDF</span></button>
-              <button className="px-2 py-1 rounded-full border border-[var(--border)] bg-white text-xs flex items-center gap-1" onClick={exportCSV}><IconDownload /> <span>CSV</span></button>
+              <button className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={clearFilters}>Limpiar</button>
+              <button className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs flex items-center gap-1" onClick={exportPDF}><IconFileText /> <span>PDF</span></button>
+              <button className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs flex items-center gap-1" onClick={exportCSV}><IconDownload /> <span>CSV</span></button>
             </div>
           </div>
         </div>
@@ -641,7 +641,7 @@ function ReportesPage() {
       {isMonthRange ? (
         isSingleCalendarMonth ? (
           <Card title="Bienestar mensual (semanas)" compact minH={260}>
-            <div className="bg-white border border-[var(--border)] rounded-xl p-3" ref={chartRef}>
+            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3" ref={chartRef}>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={weeksInRangeSeries} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
                   <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
@@ -661,7 +661,7 @@ function ReportesPage() {
           </Card>
         ) : (
           <Card title="Bienestar mensual (promedio)" compact minH={260}>
-            <div className="bg-white border border-[var(--border)] rounded-xl p-3" ref={chartRef}>
+            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3" ref={chartRef}>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={promediosMesSeleccionado} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
                   <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
@@ -682,7 +682,7 @@ function ReportesPage() {
         )
       ) : (
         <Card title="Bienestar semanal (promedio)" compact minH={260}>
-          <div className="bg-white border border-[var(--border)] rounded-xl p-3" ref={chartRef}>
+          <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3" ref={chartRef}>
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={weeklySeries} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
                 <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
@@ -713,7 +713,7 @@ function ReportesPage() {
       <Card title="Promedios generales por mes" compact>
         <table className="w-full border-collapse">
           <thead>
-            <tr className="text-[var(--muted)] font-semibold text-sm">
+            <tr className="text-[var(--text)] font-semibold text-sm">
               <th className="text-left px-3 py-2 border-b">Mes</th>
               <th className="text-left px-3 py-2 border-b">Promedio</th>
             </tr>
@@ -746,9 +746,9 @@ function ReportesPage() {
                 </select>
               </div>
               <div className="flex items-center gap-2">
-                <button className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white text-sm disabled:opacity-50" onClick={() => setPromPage((p) => Math.max(1, p - 1))} disabled={promPage === 1}>Anterior</button>
+                <button className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm disabled:opacity-50" onClick={() => setPromPage((p) => Math.max(1, p - 1))} disabled={promPage === 1}>Anterior</button>
                 <span className="text-sm text-[var(--muted)]">Página {promPage} de {promTotalPages}</span>
-                <button className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white text-sm disabled:opacity-50" onClick={() => setPromPage((p) => Math.min(promTotalPages, p + 1))} disabled={promPage === promTotalPages}>Siguiente</button>
+                <button className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm disabled:opacity-50" onClick={() => setPromPage((p) => Math.min(promTotalPages, p + 1))} disabled={promPage === promTotalPages}>Siguiente</button>
               </div>
             </div>
           </div>
@@ -759,7 +759,7 @@ function ReportesPage() {
       <Card title="Participación semanal" compact>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {paginatedParticipation.map((w) => (
-            <div key={w.week} className="bg-white border border-[var(--border)] rounded-xl p-3">
+            <div key={w.week} className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
               <div className="m-0"><WeekBadge week={w.week} /></div>
               <div className="mt-2 h-2 bg-[var(--border)] rounded-full overflow-hidden">
                 <div className="h-2 bg-primary" style={{ width: `${w.porcentaje}%` }} />
@@ -785,9 +785,9 @@ function ReportesPage() {
                 </select>
               </div>
               <div className="flex items-center gap-2">
-                <button className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white text-sm disabled:opacity-50" onClick={() => setPartPage((p) => Math.max(1, p - 1))} disabled={partPage === 1}>Anterior</button>
+                <button className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm disabled:opacity-50" onClick={() => setPartPage((p) => Math.max(1, p - 1))} disabled={partPage === 1}>Anterior</button>
                 <span className="text-sm text-[var(--muted)]">Página {partPage} de {partTotalPages}</span>
-                <button className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white text-sm disabled:opacity-50" onClick={() => setPartPage((p) => Math.min(partTotalPages, p + 1))} disabled={partPage === partTotalPages}>Siguiente</button>
+                <button className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm disabled:opacity-50" onClick={() => setPartPage((p) => Math.min(partTotalPages, p + 1))} disabled={partPage === partTotalPages}>Siguiente</button>
               </div>
             </div>
           </div>
@@ -889,7 +889,7 @@ function getWeekKey(dateStr) {
 
 function Stat({ label, value }) {
   return (
-    <div className="bg-white border border-[var(--border)] rounded-xl p-3">
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
       <p className="m-0 text-[var(--muted)] text-sm">{label}</p>
       <p className="m-0 text-lg font-semibold">{value}</p>
     </div>
@@ -946,15 +946,15 @@ function MultiSelect({ placeholder, options, selected, onChange, disabled }) {
 
   return (
     <div className="relative" ref={rootRef}>
-      <button type="button" className="w-full border border-[var(--border)] rounded-full px-2 py-1 text-xs bg-white text-left" onClick={toggle} disabled={disabled}>
+      <button type="button" className="w-full border border-[var(--border)] rounded-full px-2 py-1 text-xs bg-[var(--surface)] text-[var(--text)] text-left" onClick={toggle} disabled={disabled}>
         <span className="text-[var(--muted)]">{placeholder}</span>
         <span className="ml-1">{selected?.length || 0}</span>
       </button>
       {open && createPortal(
-        <div style={menuStyle} className="fixed bg-white border border-[var(--border)] rounded-xl p-2 shadow-lg">
+        <div style={menuStyle} className="fixed bg-[var(--surface)] text-[var(--text)] border border-[var(--border)] rounded-xl p-2 shadow-lg">
           <div className="flex items-center justify-between mb-2">
-            <button type="button" className="px-2 py-1 rounded-full border border-[var(--border)] bg-white text-xs" onClick={selectAll} disabled={disabled}>Seleccionar todo</button>
-            <button type="button" className="px-2 py-1 rounded-full border border-[var(--border)] bg-white text-xs" onClick={clearAll} disabled={disabled}>Vaciar</button>
+            <button type="button" className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={selectAll} disabled={disabled}>Seleccionar todo</button>
+            <button type="button" className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={clearAll} disabled={disabled}>Vaciar</button>
           </div>
           <div className="max-h-48 overflow-auto">
             {options.length === 0 && (

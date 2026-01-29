@@ -110,15 +110,15 @@ const fetchAsistencias = async ({ search, status, startDate, endDate, rol, area,
 
 function StatusBadge({ status }) {
   const map = {
-    Presente: { bg: '#eaf7ea', color: '#55AB44' },
-    Ausente: { bg: '#ffeaea', color: '#ef4444' },
-    Tarde: { bg: '#fff3e6', color: '#f59e0b' },
-    'Sin marcar': { bg: '#f3f4f6', color: '#6b7280' },
-    'Día libre': { bg: '#e7f5ff', color: '#3b82f6' },
+    Presente: 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300',
+    Ausente: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',
+    Tarde: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
+    'Sin marcar': 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
+    'Día libre': 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',
   }
-  const s = map[status] || { bg: '#eaeaea', color: '#6b7280' }
+  const className = map[status] || 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
   return (
-    <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold" style={{ backgroundColor: s.bg, color: s.color }}>
+    <span className={`px-2 py-0.5 rounded-full text-[11px] font-semibold ${className}`}>
       {status}
     </span>
   )
@@ -132,13 +132,13 @@ function CalendarOverlay({ userId, name, onClose }) {
   const month = viewDate.getMonth()
   const daysInMonth = new Date(year, month + 1, 0).getDate()
 
-  const colorFor = (status) => {
-    if (status === 'Presente') return { bg: '#eaf7ea', text: '#55AB44' }
-    if (status === 'Tarde') return { bg: '#fff3e6', text: '#f59e0b' }
-    if (status === 'Ausente') return { bg: '#ffeaea', text: '#ef4444' }
-    if (status === 'Sin marcar') return { bg: '#f3f4f6', text: '#6b7280' }
-    if (status === 'Día libre') return { bg: '#e7f5ff', text: '#3b82f6' }
-    return { bg: '#f3f4f6', text: '#6b7280' }
+  const classFor = (status) => {
+    if (status === 'Presente') return 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300'
+    if (status === 'Tarde') return 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300'
+    if (status === 'Ausente') return 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300'
+    if (status === 'Sin marcar') return 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
+    if (status === 'Día libre') return 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300'
+    return 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
   }
 
   // Obtener fecha inicial desde horarios (fecha_creacion mínima)
@@ -199,36 +199,36 @@ function CalendarOverlay({ userId, name, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/20 grid place-items-center z-50">
-      <div className="w-[760px] bg-white border border-[var(--border)] rounded-xl shadow-sm">
+    <div className="fixed inset-0 bg-black/50 grid place-items-center z-50">
+      <div className="w-[760px] bg-[var(--surface)] border border-[var(--border)] rounded-xl shadow-sm">
         <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--border)]">
-          <h3 className="text-sm font-medium">Calendario de asistencia — {name}</h3>
-          <button className="px-2 py-1 rounded-md border text-xs" onClick={onClose}>Cerrar</button>
+          <h3 className="text-sm font-medium text-[var(--text)]">Calendario de asistencia — {name}</h3>
+          <button className="px-2 py-1 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--muted)]/10 text-xs" onClick={onClose}>Cerrar</button>
         </div>
         <div className="p-3">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-[var(--muted)]">{viewDate.toLocaleString('es-ES', { month: 'long', year: 'numeric' })}</span>
             <div className="flex items-center gap-2 text-[11px]">
-              <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: '#eaf7ea', color: '#55AB44' }}>Presente</span>
-              <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: '#fff3e6', color: '#f59e0b' }}>Tarde</span>
-              <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: '#ffeaea', color: '#ef4444' }}>Ausente</span>
-              <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: '#f3f4f6', color: '#6b7280' }}>Sin marcar</span>
-              <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: '#e7f5ff', color: '#3b82f6' }}>Día libre</span>
+              <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">Presente</span>
+              <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">Tarde</span>
+              <span className="px-2 py-0.5 rounded-full bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300">Ausente</span>
+              <span className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">Sin marcar</span>
+              <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">Día libre</span>
             </div>
           </div>
           <div className="flex items-center justify-between mb-2">
-            <button className="px-2 py-1 rounded-md border text-xs" onClick={prevMonth}>Mes anterior</button>
-            <button className="px-2 py-1 rounded-md border text-xs" onClick={nextMonth}>Mes siguiente</button>
+            <button className="px-2 py-1 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--muted)]/10 text-xs" onClick={prevMonth}>Mes anterior</button>
+            <button className="px-2 py-1 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--muted)]/10 text-xs" onClick={nextMonth}>Mes siguiente</button>
           </div>
           <div className="grid grid-cols-7 gap-1">
             {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((d) => {
               const item = monthData.find(x => x.day === d)
               const st = item ? item.status : '-'
-              const col = colorFor(st)
+              const cls = classFor(st)
               return (
                 <div key={d} className="border border-[var(--border)] rounded-md p-2 text-center">
-                  <div className="text-xs font-medium mb-1">{d}</div>
-                  <span className="px-2 py-0.5 rounded-full text-[11px]" style={{ backgroundColor: col.bg, color: col.text }}>{st}</span>
+                  <div className="text-xs font-medium mb-1 text-[var(--text)]">{d}</div>
+                  <span className={`px-2 py-0.5 rounded-full text-[11px] ${cls}`}>{st}</span>
                 </div>
               )
             })}
@@ -357,9 +357,9 @@ function AsistenciaPage() {
           Asistencia de <span className="text-[var(--text)] font-semibold">trabajadores</span>
         </h1>
         <div className="flex gap-2">
-          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs" onClick={setToday}>Hoy</button>
-          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs" onClick={setCurrentWeek}>Semana</button>
-          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs" onClick={setCurrentMonth}>Mes</button>
+          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={setToday}>Hoy</button>
+          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={setCurrentWeek}>Semana</button>
+          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={setCurrentMonth}>Mes</button>
         </div>
       </div>
 
@@ -407,12 +407,12 @@ function AsistenciaPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Buscar nombre, área o rol"
-            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-30 sm:w-45"
+            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)] w-30 sm:w-45"
           />
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-32 sm:w-34"
+            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)] w-32 sm:w-34"
           >
             <option>Todos</option>
             <option>Presente</option>
@@ -424,7 +424,7 @@ function AsistenciaPage() {
           <select
             value={rol}
             onChange={(e) => setRol(e.target.value)}
-            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-32 sm:w-30"
+            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)] w-32 sm:w-30"
           >
             <option value="">Rol</option>
             {ROLES_OPCIONES.map((r) => (
@@ -434,7 +434,7 @@ function AsistenciaPage() {
           <select
             value={area}
             onChange={(e) => setArea(e.target.value)}
-            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-32 sm:w-36"
+            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)] w-32 sm:w-36"
           >
             <option value="">Área</option>
             {AREAS_OPCIONES.map((a) => (
@@ -444,7 +444,7 @@ function AsistenciaPage() {
           <select
             value={cargo}
             onChange={(e) => setCargo(e.target.value)}
-            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-32 sm:w-36"
+            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)] w-32 sm:w-36"
           >
             <option value="">Cargo</option>
             {CARGOS_OPCIONES.map((c) => (
@@ -455,14 +455,14 @@ function AsistenciaPage() {
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-36"
+            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)] w-36"
           />
           <span className="text-[var(--muted)] text-xs">a</span>
           <input
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs w-36"
+            className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)] w-36"
           />
         </div>
       </Card>
@@ -487,16 +487,16 @@ function AsistenciaPage() {
           <div className="overflow-auto max-h-[50vh] min-h-[200px]">
             <table className="w-full border-collapse text-sm">
               <thead>
-                <tr className="text-[var(--muted)] font-semibold text-xs">
-                  <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">#</th>
-                  <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Trabajador</th>
-                  <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Estado</th>
-                  <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Fecha</th>
-                  <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Horario</th>
-                  <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Entrada</th>
-                  <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Salida</th>
-                  <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Observación</th>
-                  <th className="sticky top-0 bg-white z-10 text-left px-2 py-1 border-b">Acciones</th>
+                <tr className="text-[var(--text)] font-semibold text-xs">
+                  <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">#</th>
+                  <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Trabajador</th>
+                  <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Estado</th>
+                  <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Fecha</th>
+                  <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Horario</th>
+                  <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Entrada</th>
+                  <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Salida</th>
+                  <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Observación</th>
+                  <th className="sticky top-0 bg-[var(--surface)] z-10 text-left px-2 py-1 border-b">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -535,7 +535,7 @@ function AsistenciaPage() {
               <div className="flex items-center gap-1">
                 <span className="text-xs text-[var(--muted)]">Por página:</span>
                 <select
-                  className="px-2 py-1 rounded-full border text-xs"
+                  className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs"
                   value={pageSize}
                   onChange={(e) => { const val = Number(e.target.value); setPageSize(val); setPage(1); }}
                 >
@@ -547,7 +547,7 @@ function AsistenciaPage() {
             </div>
             <div className="flex items-center gap-2">
               <button
-                className="px-3 py-1.5 rounded-full border text-xs"
+                className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs disabled:opacity-50"
                 onClick={() => setPage(p => Math.max(1, p - 1))}
                 disabled={page <= 1}
               >Anterior</button>
@@ -567,7 +567,7 @@ function AsistenciaPage() {
                   typeof p === 'number' ? (
                     <button
                       key={`p-${p}`}
-                      className={`px-2.5 py-1 rounded-full border text-xs ${p === page ? 'bg-primary text-white' : 'bg-white'}`}
+                      className={`px-2.5 py-1 rounded-full border text-xs ${p === page ? 'bg-primary text-white' : 'bg-[var(--surface)] text-[var(--text)]'}`}
                       onClick={() => setPage(p)}
                     >{p}</button>
                   ) : (

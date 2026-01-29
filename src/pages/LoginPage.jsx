@@ -21,13 +21,13 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-lg">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--bg)] transition-colors">
+      <div className="max-w-md w-full space-y-8 p-8 bg-[var(--surface)] rounded-xl shadow-lg border border-[var(--border)]">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-[var(--text)]">
             MediFlow Admin
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-[var(--muted)]">
             Inicia sesión para administrar el sistema
           </p>
         </div>
@@ -41,7 +41,7 @@ export default function LoginPage() {
                 type="email"
                 autoComplete="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-[var(--border)] placeholder-[var(--muted)] text-[var(--text)] bg-[var(--surface)] rounded-t-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                 placeholder="Correo electrónico"
                 value={correo}
                 onChange={(e) => setCorreo(e.target.value)}
@@ -55,7 +55,7 @@ export default function LoginPage() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-[var(--border)] placeholder-[var(--muted)] text-[var(--text)] bg-[var(--surface)] rounded-b-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                 placeholder="Contraseña"
                 value={contrasena}
                 onChange={(e) => setContrasena(e.target.value)}
@@ -64,7 +64,7 @@ export default function LoginPage() {
           </div>
 
           {error && (
-            <div className="text-red-500 text-sm text-center">
+            <div className="text-[var(--danger)] text-sm text-center">
               {error}
             </div>
           )}
@@ -72,7 +72,7 @@ export default function LoginPage() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all"
             >
               Ingresar
             </button>

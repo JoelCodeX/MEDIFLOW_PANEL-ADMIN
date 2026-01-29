@@ -99,11 +99,11 @@ export default function ProfesionalesPage() {
             ))}
           </select>
           <button
-            className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs"
+            className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs"
             onClick={load}
           >Buscar</button>
           <button
-            className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs ml-auto"
+            className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs ml-auto"
             onClick={() => { setQ(''); setMeta(m => ({ ...m, page: 1 })); load() }}
           >Limpiar</button>
           <button
@@ -126,7 +126,7 @@ export default function ProfesionalesPage() {
           {loading ? <div className="text-xs">Cargando...</div> : (
             <table className="min-w-full text-xs border-collapse">
               <thead>
-                <tr className="text-[var(--muted)] font-semibold">
+                <tr className="text-[var(--text)] font-semibold">
                   <th className="text-left px-3 py-2 border-b">Nombre</th>
                   <th className="text-left px-3 py-2 border-b">Especialidad</th>
                   <th className="text-left px-3 py-2 border-b">Área</th>
@@ -150,7 +150,7 @@ export default function ProfesionalesPage() {
                     <td className="px-3 py-2 border-b">
                       <div className="flex items-center gap-2">
                         <button
-                          className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 bg-white text-gray-600 hover:text-white hover:bg-[#3b82f6] hover:border-[#3b82f6] transition-colors"
+                          className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:text-white hover:bg-[#3b82f6] hover:border-[#3b82f6] transition-colors"
                           onClick={() => startEdit(p)}
                           title="Editar"
                           aria-label="Editar"
@@ -158,7 +158,7 @@ export default function ProfesionalesPage() {
                           <FiEdit size={16} />
                         </button>
                         <button
-                          className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 bg-white text-gray-600 hover:text-white hover:bg-red-600 hover:border-red-600 transition-colors"
+                          className="w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:text-white hover:bg-red-600 hover:border-red-600 transition-colors"
                           onClick={() => handleDelete(p.id)}
                           title="Eliminar"
                           aria-label="Eliminar"

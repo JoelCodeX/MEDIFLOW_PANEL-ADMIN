@@ -466,10 +466,10 @@ function EncuestasPage() {
         </h1>
         <div className="flex gap-2">
           <button className="px-3 py-1 rounded-full bg-primary text-white text-xs disabled:opacity-60" onClick={handlePublish} disabled={publishing || saving || !canPublish}>{publishing ? 'Publicando…' : 'Publicar'}</button>
-          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs disabled:opacity-60" onClick={handleSave} disabled={saving || publishing}>{saving ? 'Guardando…' : 'Guardar borrador'}</button>
-          <Link to="/encuestas/publicadas" className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs flex items-center gap-1" title="Ir a encuestas publicadas"><FaFolderOpen /> <span>Publicadas</span></Link>
+          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs disabled:opacity-60" onClick={handleSave} disabled={saving || publishing}>{saving ? 'Guardando…' : 'Guardar borrador'}</button>
+          <Link to="/encuestas/publicadas" className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs flex items-center gap-1" title="Ir a encuestas publicadas"><FaFolderOpen /> <span>Publicadas</span></Link>
           {encuestaId && (
-            <button className="px-3 py-1 rounded-full border border-red-300 bg-white text-xs text-red-600 flex items-center gap-1" onClick={handleDeleteSurvey} title="Eliminar encuesta"><FaTrash /> <span>Eliminar</span></button>
+            <button className="px-3 py-1 rounded-full border border-red-300 bg-[var(--surface)] text-xs text-red-600 flex items-center gap-1" onClick={handleDeleteSurvey} title="Eliminar encuesta"><FaTrash /> <span>Eliminar</span></button>
           )}
         </div>
       </div>
@@ -483,19 +483,19 @@ function EncuestasPage() {
                 <div className="grid grid-cols-4 gap-2">
                   <div className="grid gap-1">
                     <label className="sr-only">Fecha inicio</label>
-                    <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs" />
+                    <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" />
                   </div>
                   <div className="grid gap-1">
                     <label className="sr-only">Hora inicio</label>
-                    <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs" />
+                    <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" />
                   </div>
                   <div className="grid gap-1">
                     <label className="sr-only">Fecha fin</label>
-                    <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs" />
+                    <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" />
                   </div>
                   <div className="grid gap-1">
                     <label className="sr-only">Hora fin</label>
-                    <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs" />
+                    <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" />
                   </div>
                 </div>
                 <div className="text-[11px] mt-1">
@@ -527,7 +527,7 @@ function EncuestasPage() {
                   <select
                     value={audienceCategory}
                     onChange={(e) => setAudienceCategory(e.target.value)}
-                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs w-full"
+                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs w-full"
                   >
                     {areas.length === 0 && <option value="">(Sin áreas)</option>}
                     {areas.map((c) => (
@@ -539,7 +539,7 @@ function EncuestasPage() {
                   <select
                     value={audienceWorkerId}
                     onChange={(e) => setAudienceWorkerId(e.target.value)}
-                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs w-full"
+                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs w-full"
                   >
                     {usuarios.length === 0 && <option value="">(Sin usuarios)</option>}
                     {usuarios.map((u) => (
@@ -565,7 +565,7 @@ function EncuestasPage() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="📝 Título de la encuesta"
-                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs"
+                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs"
                   />
                 </div>
                 <div className="grid gap-1">
@@ -574,7 +574,7 @@ function EncuestasPage() {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="🧾 Breve descripción, objetivos y alcance"
-                    className="px-3 py-2 rounded-xl border border-[var(--border)] bg-white text-xs min-h-[80px]"
+                    className="px-3 py-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs min-h-[80px]"
                   />
                 </div>
               </div>
@@ -582,18 +582,18 @@ function EncuestasPage() {
 
             <Card title="Resumen" compact dense className="mt-2">
               <div className="flex flex-wrap gap-1">
-                <span className="px-2 py-0.5 rounded-full border bg-white text-[11px]" title="Título">📝 {title || '-'}</span>
-            <span className="px-2 py-0.5 rounded-full border bg-white text-[11px]" title="Audiencia">👥 {audienceType}{audienceType === 'Área' ? ` (${audienceCategory || '-'})` : audienceType === 'Trabajador' ? ` (${usuarios.find(u => String(u.id) === String(audienceWorkerId))?.nombre || '-'})` : ''}</span>
-                <span className="px-2 py-0.5 rounded-full border bg-white text-[11px] flex items-center gap-1" title="Preguntas"><FaRegQuestionCircle /> <span>Preguntas:</span> <span className="font-semibold">{summary.total}</span></span>
-                <span className="px-2 py-0.5 rounded-full border bg-white text-[11px] flex items-center gap-1" title="Texto"><FaRegFileAlt /> <span>Texto:</span> <span className="font-semibold">{summary.text}</span></span>
-                <span className="px-2 py-0.5 rounded-full border bg-white text-[11px] flex items-center gap-1" title="Opción múltiple"><FaListUl /> <span>Opción múltiple:</span> <span className="font-semibold">{summary.multi}</span></span>
-                <span className="px-2 py-0.5 rounded-full border bg-white text-[11px] flex items-center gap-1" title="Likert"><FaChartBar /> <span>Likert:</span> <span className="font-semibold">{summary.likert}</span></span>
-                <span className="px-2 py-0.5 rounded-full border bg-white text-[11px] flex items-center gap-1" title="Inicio"><FaCalendarAlt /> <span>Inicio:</span> <span className="font-semibold">{startDate || '-'}</span> <span>{startTime || ''}</span></span>
-                <span className="px-2 py-0.5 rounded-full border bg-white text-[11px] flex items-center gap-1" title="Fin"><FaCalendarCheck /> <span>Fin:</span> <span className="font-semibold">{endDate || '-'}</span> <span>{endTime || ''}</span></span>
-                <span className={`px-2 py-0.5 rounded-full border bg-white text-[11px] flex items-center gap-1 ${!scheduleStatus.valid ? 'border-red-500 text-red-600' : ''}`} title="Estado programación">{scheduleIcon} <span>Estado:</span> <span className="font-semibold">{scheduleStatus.label}</span></span>
+                <span className="px-2 py-0.5 rounded-full border bg-[var(--surface)] text-[var(--text)] text-[11px]" title="Título">📝 {title || '-'}</span>
+            <span className="px-2 py-0.5 rounded-full border bg-[var(--surface)] text-[var(--text)] text-[11px]" title="Audiencia">👥 {audienceType}{audienceType === 'Área' ? ` (${audienceCategory || '-'})` : audienceType === 'Trabajador' ? ` (${usuarios.find(u => String(u.id) === String(audienceWorkerId))?.nombre || '-'})` : ''}</span>
+                <span className="px-2 py-0.5 rounded-full border bg-[var(--surface)] text-[var(--text)] text-[11px] flex items-center gap-1" title="Preguntas"><FaRegQuestionCircle /> <span>Preguntas:</span> <span className="font-semibold">{summary.total}</span></span>
+                <span className="px-2 py-0.5 rounded-full border bg-[var(--surface)] text-[var(--text)] text-[11px] flex items-center gap-1" title="Texto"><FaRegFileAlt /> <span>Texto:</span> <span className="font-semibold">{summary.text}</span></span>
+                <span className="px-2 py-0.5 rounded-full border bg-[var(--surface)] text-[var(--text)] text-[11px] flex items-center gap-1" title="Opción múltiple"><FaListUl /> <span>Opción múltiple:</span> <span className="font-semibold">{summary.multi}</span></span>
+                <span className="px-2 py-0.5 rounded-full border bg-[var(--surface)] text-[var(--text)] text-[11px] flex items-center gap-1" title="Likert"><FaChartBar /> <span>Likert:</span> <span className="font-semibold">{summary.likert}</span></span>
+                <span className="px-2 py-0.5 rounded-full border bg-[var(--surface)] text-[var(--text)] text-[11px] flex items-center gap-1" title="Inicio"><FaCalendarAlt /> <span>Inicio:</span> <span className="font-semibold">{startDate || '-'}</span> <span>{startTime || ''}</span></span>
+                <span className="px-2 py-0.5 rounded-full border bg-[var(--surface)] text-[var(--text)] text-[11px] flex items-center gap-1" title="Fin"><FaCalendarCheck /> <span>Fin:</span> <span className="font-semibold">{endDate || '-'}</span> <span>{endTime || ''}</span></span>
+                <span className={`px-2 py-0.5 rounded-full border bg-[var(--surface)] text-[var(--text)] text-[11px] flex items-center gap-1 ${!scheduleStatus.valid ? 'border-red-500 text-red-600' : ''}`} title="Estado programación">{scheduleIcon} <span>Estado:</span> <span className="font-semibold">{scheduleStatus.label}</span></span>
                 {/* Conteos por clasificación */}
                 {CLASSIFICATIONS.map((c) => (
-                  <span key={`sum-${c}`} className="px-2 py-0.5 rounded-full border bg-white text-[11px] flex items-center gap-1" title={c}>
+                  <span key={`sum-${c}`} className="px-2 py-0.5 rounded-full border bg-[var(--surface)] text-[var(--text)] text-[11px] flex items-center gap-1" title={c}>
                     {c === 'Físico' ? <FaDumbbell /> : c === 'Psicosocial' ? <FaBrain /> : c === 'Clima laboral' ? <FaBuilding /> : <FaPen />}
                     <span>{c}:</span>
                     <span className="font-semibold">{summary.byCat?.[c] || 0}</span>
@@ -609,7 +609,7 @@ function EncuestasPage() {
                   <select
                     value={questionType}
                     onChange={(e) => setQuestionType(e.target.value)}
-                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs"
+                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs"
                   >
                     <option>Texto</option>
                     <option>Opción múltiple</option>
@@ -621,7 +621,7 @@ function EncuestasPage() {
                   <select
                     value={questionCategory}
                     onChange={(e) => setQuestionCategory(e.target.value)}
-                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs"
+                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs"
                   >
                     {CLASSIFICATIONS.map((c) => (
                       <option key={c} value={c}>{c}</option>
@@ -635,7 +635,7 @@ function EncuestasPage() {
                     value={questionText}
                     onChange={(e) => setQuestionText(e.target.value)}
                     placeholder="❓ Escribe la pregunta"
-                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs"
+                    className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs"
                   />
                 </div>
 
@@ -647,9 +647,9 @@ function EncuestasPage() {
                         value={optionDraft}
                         onChange={(e) => setOptionDraft(e.target.value)}
                         placeholder="Nueva opción"
-                        className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs flex-1"
+                        className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs flex-1"
                       />
-                      <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs" onClick={addOptionToPool}>Añadir</button>
+                      <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={addOptionToPool}>Añadir</button>
                     </div>
                     <ul className="grid gap-1 list-none p-0 m-0">
                       {optionPool.map((opt, i) => (
@@ -690,7 +690,7 @@ function EncuestasPage() {
                       <select
                         value={likertScalePoints}
                         onChange={(e) => setLikertScalePoints(e.target.value)}
-                        className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs w-full"
+                        className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs w-full"
                       >
                         <option value="5">5 puntos</option>
                         {likertStyle === 'acuerdo' && <option value="7">7 puntos</option>}
@@ -700,7 +700,7 @@ function EncuestasPage() {
                       <label className="sr-only">Etiquetas</label>
                       <div className="flex flex-wrap gap-1">
                         {LIKERT_STYLES[likertStyle][likertScalePoints].map((lab, i) => (
-                          <span key={`lab-${i}`} className="px-2 py-0.5 rounded-full border border-[var(--border)] bg-white text-[11px]">{lab}</span>
+                          <span key={`lab-${i}`} className="px-2 py-0.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-[11px]">{lab}</span>
                         ))}
                       </div>
                     </div>
@@ -709,7 +709,7 @@ function EncuestasPage() {
 
                 <div className="flex gap-2">
                   <button className="px-3 py-1 rounded-full bg-primary text-white text-xs" onClick={addQuestion}>{editingQuestionId ? 'Guardar cambios' : 'Agregar pregunta'}</button>
-                  <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs" onClick={() => { setQuestionText(''); setQuestionType('Texto'); setOptionPool([]); setLikertScalePoints('5'); setQuestionCategory('Físico'); setEditingQuestionId(null) }}>Limpiar</button>
+                  <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={() => { setQuestionText(''); setQuestionType('Texto'); setOptionPool([]); setLikertScalePoints('5'); setQuestionCategory('Físico'); setEditingQuestionId(null) }}>Limpiar</button>
                 </div>
 
                 <div className="border-t border-[var(--border)] pt-2">
@@ -719,7 +719,7 @@ function EncuestasPage() {
                       <select
                         value={selectedTemplate}
                         onChange={(e) => setSelectedTemplate(e.target.value)}
-                        className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs w-full"
+                        className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs w-full"
                       >
                         {SALUD_TEMPLATES.map((t) => (
                           <option key={t} value={t}>{t}</option>
@@ -731,13 +731,13 @@ function EncuestasPage() {
                         <select
                           value={templateCategory}
                           onChange={(e) => setTemplateCategory(e.target.value)}
-                          className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs w-full"
+                          className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs w-full"
                         >
                           {CLASSIFICATIONS.map((c) => (
                             <option key={`tpl-${c}`} value={c}>{c}</option>
                           ))}
                         </select>
-                        <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs w-full" onClick={addTemplateQuestion}>Añadir plantilla</button>
+                        <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs w-full" onClick={addTemplateQuestion}>Añadir plantilla</button>
                       </div>
                     </div>
                   </div>
@@ -752,7 +752,7 @@ function EncuestasPage() {
                           <div className="flex items-center gap-2">
                             <span className="text-[12px]">{q.type === 'Texto' ? '📝' : q.type === 'Opción múltiple' ? '🔘' : '📊'}</span>
                             <div className="text-xs font-medium truncate max-w-[240px]" title={q.text}>{q.text}</div>
-                            <span className="px-2 py-0.5 rounded-full border border-[var(--border)] bg-white text-[10px]" title="Clasificación">{q.category}</span>
+                            <span className="px-2 py-0.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-[10px]" title="Clasificación">{q.category}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <button className="px-2 py-0.5 rounded-md border text-[11px]" onClick={() => setExpandedQuestions(prev => ({...prev, [q.id]: !prev[q.id]}))} title="Detalle">{expandedQuestions[q.id] ? '▾' : '▸'}</button>
@@ -766,7 +766,7 @@ function EncuestasPage() {
                             {q.type === 'Likert' && q?.likert?.labels?.length > 0 && (
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {q.likert.labels.map((lab, i) => (
-                                  <span key={`${q.id}-lab-${i}`} className="px-2 py-0.5 rounded-full border border-[var(--border)] bg-white text-[11px]">{lab}</span>
+                                  <span key={`${q.id}-lab-${i}`} className="px-2 py-0.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-[11px]">{lab}</span>
                                 ))}
                               </div>
                             )}
@@ -810,7 +810,7 @@ function EncuestasPage() {
                           <div className="text-xs font-medium mb-1">{q.text}</div>
                           <div className="text-[11px] text-[var(--muted)] mb-1">Tipo: {q.type === 'Texto' ? 'Respuesta corta' : q.type}{q.type === 'Opción múltiple' && ` · ${q.options.length} opciones`}{q.type === 'Likert' && ` · ${q?.likert?.points || 0} puntos`}</div>
                           {q.type === 'Texto' && (
-                            <input type="text" placeholder="Tu respuesta" className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs w-full" />
+                            <input type="text" placeholder="Tu respuesta" className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs w-full" />
                           )}
                           {q.type === 'Opción múltiple' && (
                             <div className="grid gap-1">

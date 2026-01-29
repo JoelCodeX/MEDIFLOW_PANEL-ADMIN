@@ -61,7 +61,7 @@ function DashboardPage() {
       {/* Saludo y filtros (arriba) */}
       <div className="flex items-center justify-between mb-2 ">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-white grid place-items-center">
+          <div className="w-8 h-8 rounded-full bg-[var(--surface)] grid place-items-center">
             <img src={user} alt="Administrador" className="w-7 h-7 rounded-full" />
           </div>
           <h1 className="text-sm text-[var(--muted)]">
@@ -71,14 +71,14 @@ function DashboardPage() {
         <div className="relative">
           <button 
             onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[var(--border)] text-xs font-medium text-[var(--text)] hover:bg-gray-50 transition-colors"
+            className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--border)] text-xs font-medium text-[var(--text)] hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
             <span>{period.charAt(0).toUpperCase() + period.slice(1)}</span>
             <FiChevronDown className={`w-3 h-3 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`} />
           </button>
           
           {isFilterOpen && (
-            <div className="absolute right-0 top-full mt-1 w-32 bg-white rounded-lg shadow-lg border border-[var(--border)] py-1 z-50">
+            <div className="absolute right-0 top-full mt-1 w-32 bg-[var(--surface)] rounded-lg shadow-lg border border-[var(--border)] py-1 z-50">
               {['total', 'anual', 'mensual', 'semanal'].map((p) => (
                 <button
                   key={p}
@@ -86,7 +86,7 @@ function DashboardPage() {
                     setPeriod(p)
                     setIsFilterOpen(false)
                   }}
-                  className={`w-full text-left px-3 py-1.5 text-xs hover:bg-gray-50 ${period === p ? 'text-primary font-semibold bg-primary/5' : 'text-[var(--text)]'}`}
+                  className={`w-full text-left px-3 py-1.5 text-xs hover:bg-gray-50 dark:hover:bg-gray-800 ${period === p ? 'text-primary font-semibold bg-primary/5' : 'text-[var(--text)]'}`}
                 >
                   {p.charAt(0).toUpperCase() + p.slice(1)}
                 </button>
@@ -117,7 +117,7 @@ function DashboardPage() {
               </div>
             </div>
             <div className="mt-1 flex items-center justify-between">
-              <span className="px-2 py-0.5 rounded-full bg-[#eaf7ea] text-[#55AB44] text-[9px] font-semibold">+{usuarios.nuevos_mes}</span>
+              <span className="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-[#55AB44] text-[9px] font-semibold">+{usuarios.nuevos_mes}</span>
               <span className="text-[10px] text-[var(--muted)]">{periodLabel}</span>
             </div>
           </Card>
@@ -139,7 +139,7 @@ function DashboardPage() {
             </div>
             <div className="mt-1 flex items-center justify-between">
               {/* TODO: Calcular delta real */}
-              <span className="px-2 py-0.5 rounded-full bg-[#eaf7ea] text-[#55AB44] text-[9px] font-semibold">Info</span>
+              <span className="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-[#55AB44] text-[9px] font-semibold">Info</span>
               <span className="text-[10px] text-[var(--muted)]">{periodLabel}</span>
             </div>
           </Card>
@@ -161,7 +161,7 @@ function DashboardPage() {
               </div>
             </div>
             <div className="mt-1 flex items-center justify-between">
-              <span className="px-2 py-0.5 rounded-full bg-[#eaf7ea] text-[#55AB44] text-[9px] font-semibold">+{evaluaciones.nuevas_mes}</span>
+              <span className="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-[#55AB44] text-[9px] font-semibold">+{evaluaciones.nuevas_mes}</span>
               <span className="text-[10px] text-[var(--muted)]">{periodLabel}</span>
             </div>
           </Card>
@@ -180,7 +180,7 @@ function DashboardPage() {
               </div>
             </div>
             <div className="mt-1 flex items-center justify-between">
-              <span className="px-2 py-0.5 rounded-full bg-[#fff3e6] text-[#f59e0b] text-[9px] font-semibold">+{participacion.variacion}%</span>
+              <span className="px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-900/30 text-[#f59e0b] text-[9px] font-semibold">+{participacion.variacion}%</span>
               <span className="text-[10px] text-[var(--muted)]">{periodLabel}</span>
             </div>
           </Card>
@@ -216,7 +216,7 @@ function DashboardPage() {
               <strong className="text-sm">{participacion.porcentaje}%</strong>
               <span>de 100%</span>
             </div>
-            <div className="mt-2 h-[6px] rounded-full bg-[#eaeaea]">
+            <div className="mt-2 h-[6px] rounded-full bg-gray-200 dark:bg-gray-700">
               <div className="h-full rounded-full bg-primary" style={{ width: `${participacion.porcentaje}%` }} />
             </div>
           </div>
@@ -228,7 +228,7 @@ function DashboardPage() {
         <Card title="Actividad reciente" actionLabel="Ver historial" compact dense className="h-full">
           <ul className="list-none grid gap-1">
             {actividad_reciente.length > 0 ? actividad_reciente.map((r, i) => (
-              <li key={i} className="flex items-center justify-between border-b border-[#eaeaea] pb-1 last:border-0">
+              <li key={i} className="flex items-center justify-between border-b border-[var(--border)] pb-1 last:border-0">
                 <span className="text-xs truncate max-w-[180px]" title={r.desc}>{r.desc}</span>
                 <span className="text-xs text-[var(--muted)] shrink-0 ml-2">{r.date}</span>
               </li>
