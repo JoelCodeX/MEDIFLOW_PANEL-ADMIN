@@ -1,5 +1,7 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { useAuth } from '@/context/AuthContext'
 import App from '@/app/App'
+import LoginPage from '@/pages/LoginPage'
 import DashboardPage from '@/pages/DashboardPage'
 import NotFoundPage from '@/pages/NotFoundPage'
 import PersonalPage from '@/pages/PersonalPage'
@@ -16,10 +18,32 @@ import ResultadosEncuestaPage from '@/pages/ResultadosEncuestaPage'
 import EncuestasPublicadasPage from '@/pages/EncuestasPublicadasPage'
 import ProfesionalesPage from '@/pages/ProfesionalesPage'
 
+const ProtectedLayout = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth()
+  
+  if (loading) {
+    return <div className="h-screen flex items-center justify-center">Cargando...</div>
+  }
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />
+  }
+
+  return children
+}
+
 export const router = createBrowserRouter([
   {
+    path: '/login',
+    element: <LoginPage />
+  },
+  {
     path: '/',
-    element: <App />,
+    element: (
+      <ProtectedLayout>
+        <App />
+      </ProtectedLayout>
+    ),
     children: [
       { index: true, element: <DashboardPage /> },
       { path: 'personal', element: <PersonalPage /> },

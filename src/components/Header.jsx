@@ -1,8 +1,7 @@
-import { CiSettings } from 'react-icons/ci'
-import { CiBellOn } from 'react-icons/ci'
+import { CiSettings, CiBellOn, CiChat1 } from 'react-icons/ci'
 import user from '../assets/user.svg'
 
-function Header() {
+function Header({ onOpenMessages }) {
   return (
     <header className="sticky top-0 z-20 flex items-center justify-between p-4 pb-0.5 overflow-hidden">
       <div className="flex items-center gap-3">
@@ -12,13 +11,20 @@ function Header() {
         </div>
       </div>
       <div className="flex items-center gap-3">
-          <span className="w-10 h-10 rounded-full bg-white grid place-items-center font-bold">
+          <button 
+            className="w-10 h-10 rounded-full bg-white grid place-items-center font-bold hover:bg-gray-50 transition-colors"
+            onClick={onOpenMessages}
+            aria-label="Mensajes"
+          >
+              <CiChat1 className='text-[var(--muted)]' size={32} />
+          </button>
+          <button className="w-10 h-10 rounded-full bg-white grid place-items-center font-bold hover:bg-gray-50 transition-colors">
                <CiBellOn className='text-[var(--muted)]' size={32} />
-          </span>
-          <span className="w-10 h-10 rounded-full bg-white grid place-items-center font-bold">
+          </button>
+          <button className="w-10 h-10 rounded-full bg-white grid place-items-center font-bold hover:bg-gray-50 transition-colors">
               <CiSettings className='text-[var(--muted)]' size={32} />
-          </span>
-          <div className="w-11 h-11 rounded-full bg-white grid place-items-center">
+          </button>
+          <div className="w-11 h-11 rounded-full bg-white grid place-items-center cursor-pointer">
             <img src={user} alt="Administrador" className="w-10 h-10 rounded-full" />
           </div>  
       </div>

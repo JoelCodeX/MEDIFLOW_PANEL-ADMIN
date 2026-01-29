@@ -36,10 +36,26 @@ function getAdminId() {
   return envId || lsId || null
 }
 
+function getToken() {
+  try { return localStorage.getItem('token') } catch { return null }
+}
+
 function withAdminHeader(headers = {}) {
+  const newHeaders = { ...headers }
+  
+  // Token Auth
+  const token = getToken()
+  if (token) {
+    newHeaders['Authorization'] = `Bearer ${token}`
+  }
+
+  // Legacy ID Auth
   const id = getAdminId()
-  if (id) return { ...headers, 'X-Admin-Id': String(id) }
-  return headers
+  if (id) {
+    newHeaders['X-Admin-Id'] = String(id)
+  }
+  
+  return newHeaders
 }
 
 export async function apiGet(path, params = {}) {

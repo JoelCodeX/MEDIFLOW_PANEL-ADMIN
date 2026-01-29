@@ -1,15 +1,61 @@
+import { useEffect, useState } from 'react'
+import { FiChevronDown } from 'react-icons/fi'
 import Card from '@/components/Card'
 import LineChart from '@/components/LineChart'
 import StatWidget from '@/components/StatWidget'
 import user from '../assets/user.svg'
-
-const rows = [
-  { desc: 'John Doe', date: '17/04/2023' },
-  { desc: 'Mesque Café', date: '17/04/2023' },
-  { desc: 'Tania Herrera', date: '16/04/2023' },
-]
+import { getDashboardStats } from '@/services/dashboard'
 
 function DashboardPage() {
+  const [stats, setStats] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [period, setPeriod] = useState('mensual')
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+
+  useEffect(() => {
+    async function loadStats() {
+      setLoading(true)
+      try {
+        const data = await getDashboardStats(period)
+        setStats(data)
+      } catch (error) {
+        console.error("Error cargando dashboard:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadStats()
+  }, [period])
+
+  if (loading) {
+    return <div className="h-full grid place-items-center text-[var(--muted)]">Cargando indicadores...</div>
+  }
+
+  // Valores por defecto seguros si falla la carga o vienen nulos
+  const { usuarios, alertas, evaluaciones, participacion, actividad_reciente } = stats || {
+    usuarios: { total: 0, nuevos_mes: 0 },
+    alertas: { total: 0, activas_periodo: 0, detalle: {} },
+    evaluaciones: { total: 0, nuevas_mes: 0 },
+    participacion: { porcentaje: 0, variacion: 0 },
+    actividad_reciente: []
+  }
+
+  const getPeriodLabel = () => {
+    switch(period) {
+      case 'semanal': return 'Esta semana'
+      case 'anual': return 'Este año'
+      case 'total': return 'Total histórico'
+      default: return 'Este mes'
+    }
+  }
+  const periodLabel = getPeriodLabel()
+
+  // Transformar detalle de alertas para el widget
+  const alertasItems = Object.entries(alertas.detalle || {}).map(([tipo, count], idx) => ({
+    label: tipo.charAt(0).toUpperCase() + tipo.slice(1),
+    color: ['#55AB44', '#8884d8', '#aa66cc', '#f59e0b'][idx % 4] // Colores cíclicos
+  }))
+
   return (
     <div className="px-2 pt-0 pb-0 h-full overflow-hidden flex flex-col min-h-0">
       {/* Saludo y filtros (arriba) */}
@@ -22,10 +68,31 @@ function DashboardPage() {
             Buenos días, <span className="text-[var(--text)] font-semibold">Administrador</span>
           </h1>
         </div>
-        <div className="flex gap-2">
-          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs">Semanal</button>
-          <button className="px-3 py-1 rounded-full bg-primary text-white text-xs">Mensual</button>
-          <button className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs">Anual</button>
+        <div className="relative">
+          <button 
+            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[var(--border)] text-xs font-medium text-[var(--text)] hover:bg-gray-50 transition-colors"
+          >
+            <span>{period.charAt(0).toUpperCase() + period.slice(1)}</span>
+            <FiChevronDown className={`w-3 h-3 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`} />
+          </button>
+          
+          {isFilterOpen && (
+            <div className="absolute right-0 top-full mt-1 w-32 bg-white rounded-lg shadow-lg border border-[var(--border)] py-1 z-50">
+              {['total', 'anual', 'mensual', 'semanal'].map((p) => (
+                <button
+                  key={p}
+                  onClick={() => {
+                    setPeriod(p)
+                    setIsFilterOpen(false)
+                  }}
+                  className={`w-full text-left px-3 py-1.5 text-xs hover:bg-gray-50 ${period === p ? 'text-primary font-semibold bg-primary/5' : 'text-[var(--text)]'}`}
+                >
+                  {p.charAt(0).toUpperCase() + p.slice(1)}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -45,13 +112,13 @@ function DashboardPage() {
                 </svg>
               </span>
               <div className="leading-tight">
-                <div className="text-sm font-bold text-[#55AB44]">35</div>
+                <div className="text-sm font-bold text-[#55AB44]">{usuarios.total}</div>
                 <div className="text-[10px] text-[var(--muted)]">Registrados</div>
               </div>
             </div>
             <div className="mt-1 flex items-center justify-between">
-              <span className="px-2 py-0.5 rounded-full bg-[#eaf7ea] text-[#55AB44] text-[9px] font-semibold">+2</span>
-              <span className="text-[10px] text-[var(--muted)]">Este mes</span>
+              <span className="px-2 py-0.5 rounded-full bg-[#eaf7ea] text-[#55AB44] text-[9px] font-semibold">+{usuarios.nuevos_mes}</span>
+              <span className="text-[10px] text-[var(--muted)]">{periodLabel}</span>
             </div>
           </Card>
         </div>
@@ -66,13 +133,14 @@ function DashboardPage() {
                 </svg>
               </span>
               <div className="leading-tight">
-                <div className="text-sm font-bold text-[#10b981]">15</div>
-                <div className="text-[10px] text-[var(--muted)]">Activas</div>
+                <div className="text-sm font-bold text-[#10b981]">{alertas.total}</div>
+                <div className="text-[10px] text-[var(--muted)]">Generadas</div>
               </div>
             </div>
             <div className="mt-1 flex items-center justify-between">
-              <span className="px-2 py-0.5 rounded-full bg-[#eaf7ea] text-[#55AB44] text-[9px] font-semibold">-3%</span>
-              <span className="text-[10px] text-[var(--muted)]">Este mes</span>
+              {/* TODO: Calcular delta real */}
+              <span className="px-2 py-0.5 rounded-full bg-[#eaf7ea] text-[#55AB44] text-[9px] font-semibold">Info</span>
+              <span className="text-[10px] text-[var(--muted)]">{periodLabel}</span>
             </div>
           </Card>
         </div>
@@ -88,13 +156,13 @@ function DashboardPage() {
                 </svg>
               </span>
               <div className="leading-tight">
-                <div className="text-sm font-bold text-[#3b82f6]">22</div>
+                <div className="text-sm font-bold text-[#3b82f6]">{evaluaciones.total}</div>
                 <div className="text-[10px] text-[var(--muted)]">Completadas</div>
               </div>
             </div>
             <div className="mt-1 flex items-center justify-between">
-              <span className="px-2 py-0.5 rounded-full bg-[#eaf7ea] text-[#55AB44] text-[9px] font-semibold">+5</span>
-              <span className="text-[10px] text-[var(--muted)]">Este mes</span>
+              <span className="px-2 py-0.5 rounded-full bg-[#eaf7ea] text-[#55AB44] text-[9px] font-semibold">+{evaluaciones.nuevas_mes}</span>
+              <span className="text-[10px] text-[var(--muted)]">{periodLabel}</span>
             </div>
           </Card>
         </div>
@@ -107,13 +175,13 @@ function DashboardPage() {
                 </svg>
               </span>
               <div className="leading-tight">
-                <div className="text-sm font-bold text-[#f59e0b]">68%</div>
+                <div className="text-sm font-bold text-[#f59e0b]">{participacion.porcentaje}%</div>
                 <div className="text-[10px] text-[var(--muted)]">Programas</div>
               </div>
             </div>
             <div className="mt-1 flex items-center justify-between">
-              <span className="px-2 py-0.5 rounded-full bg-[#fff3e6] text-[#f59e0b] text-[9px] font-semibold">+1.2%</span>
-              <span className="text-[10px] text-[var(--muted)]">Este mes</span>
+              <span className="px-2 py-0.5 rounded-full bg-[#fff3e6] text-[#f59e0b] text-[9px] font-semibold">+{participacion.variacion}%</span>
+              <span className="text-[10px] text-[var(--muted)]">{periodLabel}</span>
             </div>
           </Card>
         </div>
@@ -126,13 +194,9 @@ function DashboardPage() {
             compact
             dense
             label="Alertas"
-            value="35"
-            delta="+2.6%"
-            items={[
-              { label: 'Ergonómicas', color: '#55AB44' },
-              { label: 'Psicosociales', color: '#8884d8' },
-              { label: 'Biológicas', color: '#aa66cc' },
-            ]}
+            value={String(alertas.activas_periodo || 0)}
+            delta="Activas"
+            items={alertasItems.length > 0 ? alertasItems : [{ label: 'Sin alertas', color: '#e5e7eb' }]}
           />
         </Card>
       </div>
@@ -140,7 +204,7 @@ function DashboardPage() {
       {/* Panel 6: Indicadores de bienestar (fila inferior, ahora ocupa col 1-8) */}
       <div className="col-span-8 row-start-3 col-start-1 min-h-0">
         <Card title="Indicadores de bienestar" actionLabel="Ver más" compact dense className="h-full">
-          <LineChart />
+          <LineChart data={stats ? stats.chart_data : []} />
         </Card>
       </div>
 
@@ -149,11 +213,11 @@ function DashboardPage() {
         <Card title="Participación en actividades" actionLabel="Editar" compact dense className="h-full">
           <div>
             <div className="flex items-center justify-between text-xs">
-              <strong className="text-sm">68%</strong>
+              <strong className="text-sm">{participacion.porcentaje}%</strong>
               <span>de 100%</span>
             </div>
             <div className="mt-2 h-[6px] rounded-full bg-[#eaeaea]">
-              <div className="h-full w-[68%] rounded-full bg-primary" />
+              <div className="h-full rounded-full bg-primary" style={{ width: `${participacion.porcentaje}%` }} />
             </div>
           </div>
         </Card>
@@ -163,12 +227,14 @@ function DashboardPage() {
       <div className="col-span-4 row-span-2 row-start-2 col-start-9 min-h-0">
         <Card title="Actividad reciente" actionLabel="Ver historial" compact dense className="h-full">
           <ul className="list-none grid gap-1">
-            {rows.map((r, i) => (
-              <li key={i} className="flex items-center justify-between border-b border-[#eaeaea] pb-1">
-                <span className="text-xs">{r.desc}</span>
-                <span className="text-xs text-[var(--muted)]">{r.date}</span>
+            {actividad_reciente.length > 0 ? actividad_reciente.map((r, i) => (
+              <li key={i} className="flex items-center justify-between border-b border-[#eaeaea] pb-1 last:border-0">
+                <span className="text-xs truncate max-w-[180px]" title={r.desc}>{r.desc}</span>
+                <span className="text-xs text-[var(--muted)] shrink-0 ml-2">{r.date}</span>
               </li>
-            ))}
+            )) : (
+              <li className="text-xs text-[var(--muted)] text-center py-2">Sin actividad reciente</li>
+            )}
           </ul>
         </Card>
       </div>

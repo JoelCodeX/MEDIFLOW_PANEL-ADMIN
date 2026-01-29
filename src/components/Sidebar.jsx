@@ -44,19 +44,17 @@ function Sidebar({ onOpenMessages }) {
             }}
           </NavLink>
         ))}
-      </nav>
-
-      {/* Botón fijo de mensajes */}
-      <div className="mt-3">
+        
+        {/* Opción Mensajes con mismo estilo */}
         <button
-          className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-full border border-[var(--border)] bg-white hover:bg-primary/10"
+          className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-full transition-colors text-[var(--text)] hover:bg-primary/10 w-full text-left"
           onClick={openMessages}
           aria-label="Abrir mensajes"
         >
           <CiChat1 className="text-[var(--text)]" size={20} />
           <span className="font-light text-sm">Mensajes</span>
         </button>
-      </div>
+      </nav>
 
       <div className="mt-auto pt-6">
         <NavLink

@@ -10,33 +10,31 @@ function App() {
     <div className="grid grid-cols-[220px_1fr] h-screen overflow-hidden">
       <Sidebar onOpenMessages={() => setShowMessages(true)} />
       <div className="flex flex-col h-full min-h-0 overflow-hidden">
-        <Header />
+        <Header onOpenMessages={() => setShowMessages(true)} />
         <main className="p-4 flex-1 overflow-auto">
           <div className="max-w-screen-2xl mx-auto h-full">
             <Outlet />
           </div>
         </main>
-        {/* Botón flotante global Mensajes */}
-        <button
-          className="fixed bottom-6 right-6 px-3 py-2 rounded-full bg-primary text-white shadow-lg text-sm flex items-center gap-2"
-          onClick={() => setShowMessages(true)}
-          aria-label="Abrir mensajes"
-        >
-          <CiChat1 size={18} />
-          <span>Mensajes</span>
-        </button>
-        {/* Panel de Mensajes mínimo, sin decorador */}
+        
+        {/* Panel de Mensajes */}
         {showMessages && (
-          <div className="fixed bottom-20 right-6 w-[360px] bg-white border border-[var(--border)] rounded-xl shadow-sm z-50">
+          <div className="fixed top-20 right-6 w-[360px] bg-white border border-[var(--border)] rounded-xl shadow-xl z-50">
             <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--border)]">
               <h3 className="text-sm font-medium">Mensajes</h3>
-              <button className="px-2 py-1 rounded-md border text-xs" onClick={() => setShowMessages(false)}>Cerrar</button>
+              <button className="px-2 py-1 rounded-md border text-xs hover:bg-gray-50" onClick={() => setShowMessages(false)}>Cerrar</button>
             </div>
             <div className="p-3">
-              <p className="text-sm text-[var(--muted)]">Bandeja de mensajes (placeholder).</p>
+              <p className="text-sm text-[var(--muted)] mb-3">Bandeja de entrada</p>
               <ul className="grid gap-2 m-0">
-                <li className="border border-[var(--border)] rounded-md px-3 py-2">Juan Pérez: Consulta sobre evaluación</li>
-                <li className="border border-[var(--border)] rounded-md px-3 py-2">María P.: Confirmación de cita</li>
+                <li className="border border-[var(--border)] rounded-md px-3 py-2 hover:bg-gray-50 cursor-pointer">
+                  <div className="font-medium text-xs text-primary mb-0.5">Juan Pérez</div>
+                  <div className="text-xs text-gray-600">Consulta sobre evaluación ergonómica</div>
+                </li>
+                <li className="border border-[var(--border)] rounded-md px-3 py-2 hover:bg-gray-50 cursor-pointer">
+                  <div className="font-medium text-xs text-primary mb-0.5">María P.</div>
+                  <div className="text-xs text-gray-600">Confirmación de cita médica</div>
+                </li>
               </ul>
             </div>
           </div>
