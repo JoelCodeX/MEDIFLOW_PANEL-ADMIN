@@ -169,13 +169,13 @@ function ResultadosEncuestaPage() {
             <label className="text-xs text-[var(--muted)]">Fecha:</label>
             <input
               type="date"
-              className="px-2 py-1 rounded-full border text-[11px] bg-[var(--surface)] text-[var(--text)]"
+              className="px-2 py-1 rounded-full border border-[var(--border)] text-[11px] bg-[var(--surface)] text-[var(--text)]"
               value={fechaFiltro}
               onChange={(e) => setFechaFiltro(e.target.value)}
             />
             <button
               type="button"
-              className="px-2 py-1 rounded-full border text-[11px] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--bg)]"
+              className="px-2 py-1 rounded-full border border-[var(--border)] text-[11px] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--bg)]"
               onClick={() => setFechaFiltro(hoyStr)}
               title="Volver a hoy"
             >Hoy</button>

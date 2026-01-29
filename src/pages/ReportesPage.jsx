@@ -714,15 +714,15 @@ function ReportesPage() {
         <table className="w-full border-collapse">
           <thead>
             <tr className="text-[var(--text)] font-semibold text-sm">
-              <th className="text-left px-3 py-2 border-b">Mes</th>
-              <th className="text-left px-3 py-2 border-b">Promedio</th>
+              <th className="text-left px-3 py-2 border-b border-[var(--border)]">Mes</th>
+              <th className="text-left px-3 py-2 border-b border-[var(--border)]">Promedio</th>
             </tr>
           </thead>
           <tbody>
             {paginatedPromedios.map((m) => (
               <tr key={m.mes}>
-                <td className="px-3 py-2 border-b"><MonthBadge ym={m.mes} /></td>
-                <td className="px-3 py-2 border-b">{m.promedio ?? '—'}</td>
+                <td className="px-3 py-2 border-b border-[var(--border)]"><MonthBadge ym={m.mes} /></td>
+                <td className="px-3 py-2 border-b border-[var(--border)]">{m.promedio ?? '—'}</td>
               </tr>
             ))}
             {promediosMesSeleccionado.length === 0 && (
@@ -951,10 +951,10 @@ function MultiSelect({ placeholder, options, selected, onChange, disabled }) {
         <span className="ml-1">{selected?.length || 0}</span>
       </button>
       {open && createPortal(
-        <div style={menuStyle} className="fixed bg-[var(--surface)] text-[var(--text)] border border-[var(--border)] rounded-xl p-2 shadow-lg">
-          <div className="flex items-center justify-between mb-2">
-            <button type="button" className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={selectAll} disabled={disabled}>Seleccionar todo</button>
-            <button type="button" className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs" onClick={clearAll} disabled={disabled}>Vaciar</button>
+        <div style={menuStyle} className="fixed bg-[var(--surface)] text-[var(--text)] border border-[var(--border)] rounded-xl p-2 shadow-lg z-50">
+          <div className="flex items-center justify-between mb-2 gap-2">
+            <button type="button" className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs hover:bg-[var(--muted)]/10" onClick={selectAll} disabled={disabled}>Seleccionar todo</button>
+            <button type="button" className="px-2 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs hover:bg-[var(--muted)]/10" onClick={clearAll} disabled={disabled}>Vaciar</button>
           </div>
           <div className="max-h-48 overflow-auto">
             {options.length === 0 && (
@@ -990,7 +990,7 @@ function IconCalendar() {
 
 function MonthBadge({ ym }) {
   return (
-    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs bg-[var(--bg-soft)] border border-[var(--border)]">
+    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs bg-[var(--surface)] border border-[var(--border)] text-[var(--text)]">
       <IconCalendar />
       <span className="capitalize">{formatMonth(ym)}</span>
     </span>
@@ -1027,7 +1027,7 @@ function IconFileText() {
 
 function WeekBadge({ week }) {
   return (
-    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs bg-[var(--bg-soft)] border border-[var(--border)]">
+    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs bg-[var(--surface)] border border-[var(--border)] text-[var(--text)]">
       <IconCalendar />
       <span>{week}</span>
     </span>

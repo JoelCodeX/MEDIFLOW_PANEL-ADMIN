@@ -290,15 +290,15 @@ function PersonalPage() {
           <tbody>
             {filtered.map((u) => (
               <tr key={u.id}>
-                <td className="px-2 py-1 border-b">{u.id}</td>
-                <td className="px-2 py-1 border-b">{u.nombre} {u.apellido}</td>
-                <td className="px-2 py-1 border-b">{u.area}</td>
-                <td className="px-2 py-1 border-b">{u.rol}</td>
-                <td className="px-2 py-1 border-b">
+                <td className="px-2 py-1 border-b border-[var(--border)]">{u.id}</td>
+                <td className="px-2 py-1 border-b border-[var(--border)]">{u.nombre} {u.apellido}</td>
+                <td className="px-2 py-1 border-b border-[var(--border)]">{u.area}</td>
+                <td className="px-2 py-1 border-b border-[var(--border)]">{u.rol}</td>
+                <td className="px-2 py-1 border-b border-[var(--border)]">
                   <span className={`px-2 py-1 rounded text-xs ${u.estado === 'activo' ? 'bg-[var(--success)]/40' : 'bg-[#f97316]/20'}`}>{u.estado}</span>
                 </td>
-                <td className="px-2 py-1 border-b">{u.fecha_registro}</td>
-                <td className="px-2 py-1 border-b">
+                <td className="px-2 py-1 border-b border-[var(--border)]">{u.fecha_registro}</td>
+                <td className="px-2 py-1 border-b border-[var(--border)]">
                   <div className="flex items-center gap-2">
                     <button className="p-1.5 rounded-full border border-[var(--border)] hover:bg-[var(--muted)]/10 text-blue-500" aria-label="Ver detalle" title="Ver detalle" onClick={() => setShowDetail(u)}>
                       <FaEye size={16} />
@@ -500,9 +500,9 @@ function UserForm({ onSubmit, compact = false }) {
 
   return (
     <div className={compact ? "space-y-3 text-sm" : "space-y-4"}>
-      <div className="bg-blue-50 border border-blue-200 rounded-2xl p-2">
-        <h4 className="font-medium text-blue-800 mb-1 text-sm">💡 Información importante</h4>
-        <p className="text-xs text-blue-700">
+      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-2">
+        <h4 className="font-medium text-blue-800 dark:text-blue-300 mb-1 text-sm">💡 Información importante</h4>
+        <p className="text-xs text-blue-700 dark:text-blue-400">
           • La contraseña temporal será el <strong>DNI</strong> del trabajador (8 dígitos)<br/>
           • Se generará un enlace para que el trabajador cambie su contraseña
         </p>

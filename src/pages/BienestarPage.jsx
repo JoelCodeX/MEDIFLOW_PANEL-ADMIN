@@ -211,7 +211,7 @@ function BienestarPage() {
   return (
     <div className="grid gap-4">
       {toast && (
-        <div className="fixed top-3 right-3 z-50 px-3 py-2 rounded-md border border-green-200 bg-green-50 text-green-700 text-xs shadow">
+        <div className="fixed top-3 right-3 z-50 px-3 py-2 rounded-md border border-green-200 bg-green-50 text-green-700 dark:bg-green-900/40 dark:text-green-300 dark:border-green-800 text-xs shadow">
           {toast}
         </div>
       )}
@@ -429,10 +429,10 @@ function BienestarPage() {
       {/* Modal: Subir nuevo recurso */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-black/30 grid place-items-center p-4">
-          <div className="bg-white rounded-xl border border-[var(--border)] shadow-xl w-full max-w-md overflow-hidden">
+          <div className="bg-[var(--surface)] rounded-xl border border-[var(--border)] shadow-xl w-full max-w-md overflow-hidden text-[var(--text)]">
             <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--border)]">
               <h3 className="text-base font-semibold">Subir nuevo recurso</h3>
-              <button className="px-2 py-1 rounded-md border" onClick={() => setShowAddModal(false)}>Cerrar</button>
+              <button className="px-2 py-1 rounded-md border border-[var(--border)] hover:bg-[var(--muted)]/10 text-xs" onClick={() => setShowAddModal(false)}>Cerrar</button>
             </div>
             <div className="p-3">
               <form
@@ -449,7 +449,7 @@ function BienestarPage() {
                   </div>
                 )}
                 <input
-                  className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs col-span-4"
+                  className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs col-span-4 bg-[var(--surface)] text-[var(--text)]"
                   placeholder="Título"
                   value={nuevo.titulo}
                   disabled={agregando}
@@ -465,7 +465,7 @@ function BienestarPage() {
                   <p className="col-span-4 text-xs text-red-600">{fieldErrors.nuevoTitulo}</p>
                 )}
                 <select
-                  className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs col-span-2"
+                  className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs col-span-2 bg-[var(--surface)] text-[var(--text)]"
                   value={nuevo.tipo}
                   disabled={agregando}
                   onChange={e => {
@@ -493,7 +493,7 @@ function BienestarPage() {
                       <label className="text-[11px] text-[var(--muted)]">Archivo (opcional): si seleccionas uno se subirá a Storage</label>
                       <input
                         type="file"
-                        className="border border-[var(--border)] rounded-md px-2.5 py-1.5 text-xs"
+                        className="border border-[var(--border)] rounded-md px-2.5 py-1.5 text-xs bg-[var(--surface)] text-[var(--text)]"
                         disabled={agregando}
                         onChange={(e) => {
                           const f = e.target.files?.[0] || null
@@ -515,14 +515,14 @@ function BienestarPage() {
                         <p className="text-xs text-red-600">{fieldErrors.archivo}</p>
                       )}
                     </div>
-                    <input className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs col-span-4" placeholder="URL del archivo (opcional si subes archivo)" value={nuevo.url_archivo} onChange={e => setNuevo(s => ({ ...s, url_archivo: e.target.value }))} disabled={agregando} />
-                    <input className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs col-span-4" placeholder="Categoría/Descripción (opcional)" value={nuevo.categoria} onChange={e => setNuevo(s => ({ ...s, categoria: e.target.value }))} disabled={agregando} />
+                    <input className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs col-span-4 bg-[var(--surface)] text-[var(--text)]" placeholder="URL del archivo (opcional si subes archivo)" value={nuevo.url_archivo} onChange={e => setNuevo(s => ({ ...s, url_archivo: e.target.value }))} disabled={agregando} />
+                    <input className="border border-[var(--border)] rounded-full px-2.5 py-1.5 text-xs col-span-4 bg-[var(--surface)] text-[var(--text)]" placeholder="Categoría/Descripción (opcional)" value={nuevo.categoria} onChange={e => setNuevo(s => ({ ...s, categoria: e.target.value }))} disabled={agregando} />
                   </>
                 ) : (
                   <div className="col-span-4 grid gap-1">
                     <label className="text-[11px] text-[var(--muted)]">Texto del tip</label>
                     <textarea
-                      className="border border-[var(--border)] rounded-md px-2.5 py-1.5 text-xs min-h-[100px]"
+                      className="border border-[var(--border)] rounded-md px-2.5 py-1.5 text-xs min-h-[100px] bg-[var(--surface)] text-[var(--text)]"
                       placeholder="Escribe el tip aquí"
                       value={nuevo.categoria}
                       disabled={agregando}
@@ -531,7 +531,7 @@ function BienestarPage() {
                   </div>
                 )}
                 <div className="col-span-4 flex justify-end mt-1">
-                  <button type="submit" disabled={agregando} className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-xs hover:bg-[#55AB44] hover:border-[#55AB44] hover:text-white transition-colors disabled:opacity-60">
+                  <button type="submit" disabled={agregando} className="px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-xs hover:bg-[#55AB44] hover:border-[#55AB44] hover:text-white transition-colors disabled:opacity-60">
                     {agregando ? (
                       <span className="flex items-center gap-2">
                         <span className="inline-block w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
@@ -548,7 +548,7 @@ function BienestarPage() {
 
       {/* Interacción movida a página aparte: botón en header */}
       {error && (
-        <div className="p-2 rounded-md bg-[#fff7ed] text-[#9a3412] border border-[#fde68a] text-xs">{error}</div>
+        <div className="p-2 rounded-md bg-[#fff7ed] text-[#9a3412] border border-[#fde68a] dark:bg-red-900/20 dark:text-red-300 dark:border-red-800 text-xs">{error}</div>
       )}
       {cargando && (
         <div className="text-xs text-[var(--muted)]">Cargando contenidos...</div>
